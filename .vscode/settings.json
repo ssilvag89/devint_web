@@ -1,0 +1,32 @@
+{
+  "emmet.includeLanguages": {
+    "astro": "html"
+  },
+  "emmet.syntaxProfiles": {
+    "astro": "html"
+  },
+  "files.associations": {
+    "*.astro": "astro"
+  },
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["class:list\\s*=\\s*\\[([^\\]]*)\\]", "\"([^\"]*)\""]
+  ],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "editor.formatOnSave": true,
+  "typescript.preferences.importModuleSpecifier": "relative"
+}

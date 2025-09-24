@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://generacionurbana.cl/sitemap.xml
+
+# Disallow admin/private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_astro/
+
+# SEO-friendly crawl delay
+Crawl-delay: 1

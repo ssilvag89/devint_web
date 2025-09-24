@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/common/Header.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<BaseLayout 
+  title="Servicios - Devint | Desarrollo de Software y Consultoría"
+  description="Conoce todos nuestros servicios: desarrollo de software, aplicaciones móviles, integraciones, consultoría SAP, servicios cloud y diseño."
+>
+  <Header />
+  
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="py-20 relative">
+      <!-- Enhanced background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-slate-900/95"></div>
+      <div class="absolute inset-0 opacity-15">
+        <svg class="w-full h-full" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="services-pattern" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+              <circle cx="25" cy="25" r="1" fill="rgba(16, 185, 129, 0.3)"/>
+              <line x1="25" y1="25" x2="75" y2="25" stroke="rgba(16, 185, 129, 0.2)" stroke-width="0.5"/>
+              <line x1="25" y1="25" x2="25" y2="75" stroke="rgba(16, 185, 129, 0.2)" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#services-pattern)"/>
+        </svg>
+      </div>
+      <div class="absolute inset-0 opacity-8">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 40% 60%, rgba(16, 185, 129, 0.1) 0%, transparent 30%);"></div>
+      </div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">
+            NUESTROS
+            <span class="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+              SERVICIOS
+            </span>
+          </h1>
+          <p class="text-xl text-slate-300 leading-relaxed">
+            Ofrecemos soluciones tecnológicas integrales para impulsar tu negocio hacia el futuro digital
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 relative">
+      <!-- Subtle background variation -->
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-800/30 via-slate-900/80 to-slate-800/50"></div>
+      <div class="container mx-auto px-6">
+        <div class="grid lg:grid-cols-3 gap-12">
+          
+          <!-- Desarrollo -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8 hover:border-emerald-500/50 transition-all duration-300 group">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Desarrollo</h3>
+            <p class="text-slate-300 mb-6 leading-relaxed">
+              Creamos software a medida, aplicaciones móviles y páginas web utilizando las últimas tecnologías.
+            </p>
+            <ul class="space-y-2 text-slate-400">
+              <li>• Software personalizado</li>
+              <li>• Aplicaciones móviles</li>
+              <li>• Aplicaciones web</li>
+              <li>• Páginas web corporativas</li>
+            </ul>
+          </div>
+
+          <!-- Integraciones -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8 hover:border-emerald-500/50 transition-all duration-300 group">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Integraciones</h3>
+            <p class="text-slate-300 mb-6 leading-relaxed">
+              Conectamos tus sistemas y aplicaciones para optimizar procesos y mejorar la eficiencia.
+            </p>
+            <ul class="space-y-2 text-slate-400">
+              <li>• APIs REST y SOAP</li>
+              <li>• Integración de sistemas</li>
+              <li>• Automatización de procesos</li>
+              <li>• Sincronización de datos</li>
+            </ul>
+          </div>
+
+          <!-- Consultoría SAP -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8 hover:border-emerald-500/50 transition-all duration-300 group">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Consultoría SAP</h3>
+            <p class="text-slate-300 mb-6 leading-relaxed">
+              Expertos en SAP Business One con servicios completos de implementación y soporte.
+            </p>
+            <ul class="space-y-2 text-slate-400">
+              <li>• Implementación SAP B1</li>
+              <li>• Consultoría funcional</li>
+              <li>• Add-ons personalizados</li>
+              <li>• Soporte especializado</li>
+            </ul>
+          </div>
+
+          <!-- Cloud -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8 hover:border-emerald-500/50 transition-all duration-300 group">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Servicios Cloud</h3>
+            <p class="text-slate-300 mb-6 leading-relaxed">
+              Migración y administración de servicios en la nube para mayor escalabilidad y seguridad.
+            </p>
+            <ul class="space-y-2 text-slate-400">
+              <li>• Hosting y VPS</li>
+              <li>• Correo corporativo</li>
+              <li>• Configuración cloud</li>
+              <li>• Administración de servidores</li>
+            </ul>
+          </div>
+
+          <!-- Diseño -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8 hover:border-emerald-500/50 transition-all duration-300 group">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5v10h2V3zM19 3h-2v6h2V3zM19 21a2 2 0 01-2-2v-4a2 2 0 012-2 2 2 0 012 2v4a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Diseño</h3>
+            <p class="text-slate-300 mb-6 leading-relaxed">
+              Creamos identidades visuales impactantes y materiales de marketing efectivos.
+            </p>
+            <ul class="space-y-2 text-slate-400">
+              <li>• Identidad corporativa</li>
+              <li>• Ilustración digital</li>
+              <li>• Marketing digital</li>
+              <li>• Diseño editorial</li>
+            </ul>
+          </div>
+
+          <!-- Refactorización -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8 hover:border-emerald-500/50 transition-all duration-300 group">
+            <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Refactorización</h3>
+            <p class="text-slate-300 mb-6 leading-relaxed">
+              Modernizamos y optimizamos sistemas existentes para mejorar rendimiento y mantenibilidad.
+            </p>
+            <ul class="space-y-2 text-slate-400">
+              <li>• Modernización de código</li>
+              <li>• Optimización de performance</li>
+              <li>• Migración tecnológica</li>
+              <li>• Mejoras de arquitectura</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 rounded-3xl p-12 text-center backdrop-blur-sm border border-emerald-500/20">
+          <h2 class="text-3xl font-bold text-white mb-6">
+            ¿Tienes un proyecto en mente?
+          </h2>
+          <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+            Conversemos sobre cómo podemos ayudarte a transformar tu idea en una solución tecnológica exitosa.
+          </p>
+          <a href="/contacto" class="inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-8 py-4 rounded-full font-semibold hover:from-emerald-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25">
+            <span>Cotizar Proyecto</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  
+  <Footer />
+</BaseLayout>
