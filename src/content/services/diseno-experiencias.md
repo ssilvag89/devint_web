@@ -4,7 +4,7 @@ description: "Creamos experiencias memorables con foco en conversión, accesibil
 shortDescription: "Prototipos de alta fidelidad, diseño de sistemas y branding digital para tus productos."
 category: "Diseño"
 featured: false
-image: "/images/presentacion.png"
+image: "/images/pagina cheo-02.png"
 icon: "/images/icono2.png"
 features:
   - "Workshops de descubrimiento con stakeholders y usuarios"

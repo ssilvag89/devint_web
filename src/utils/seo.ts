@@ -1,7 +1,7 @@
 // SEO utility functions
 export function buildTitle(
   pageTitle: string,
-  siteName: string = "Devint"
+  siteName: string = "Generación Urbana"
 ): string {
   if (pageTitle.includes(siteName)) {
     return pageTitle;
@@ -11,7 +11,7 @@ export function buildTitle(
 
 export function buildCanonical(
   path: string,
-  baseUrl: string = "https://devint.cl"
+  baseUrl: string = "https://generacionurbana.cl"
 ): string {
   // Remove trailing slash except for root
   const cleanPath = path === "/" ? "/" : path.replace(/\/$/, "");

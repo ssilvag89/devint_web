@@ -12,7 +12,7 @@ if (!post) {
   throw Astro.redirect("/blog", 302);
 }
 
-const { Content } = await post.render();
+const { Content, remarkPluginFrontmatter } = await post.render();
 const { data } = post;
 
 const seoTitle = data.seo?.title ?? `${data.title} | Blog Devint`;
