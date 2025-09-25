@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/common/Header.astro";
+import Footer from "../../components/common/Footer.astro";
+import { getEntryBySlug } from "astro:content";
+import { formatDate } from "../../utils/format";
+
+const { slug } = Astro.params;
+const service = await getEntryBySlug("services", slug ?? "");
+
+if (!service) {
+  throw Astro.redirect("/servicios", 302);
+}
+
+const { data } = service;
+const seoTitle = data.seo?.title ?? `${data.title} | Servicios Devint`;
+const seoDescription = data.seo?.description ?? data.shortDescription;
+const canonical = `https://devint.cl/servicios/${service.slug}`;
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  image={data.image}
+  seo={{
+    canonical,
+    type: "product",
+    keywords: data.seo?.keywords,
+  }}
+>
+  <Header />
+
+  <main class="pt-24">
+    <section class="pb-16">
+      <div class="container mx-auto px-6">
+        <div class="grid gap-12 lg:grid-cols-[2fr,1fr]">
+          <div class="space-y-6">
+            <div class="space-y-2">
+              <a href="/servicios" class="inline-flex items-center gap-2 text-sm text-emerald-300 hover:text-emerald-200">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Volver a servicios
+              </a>
+              <span class="inline-flex text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
+                {data.category}
+              </span>
+              <h1 class="text-4xl lg:text-5xl font-bold text-white">{data.title}</h1>
+              <p class="text-lg text-slate-300 leading-relaxed">{data.description}</p>
+            </div>
+
+            {data.features.length > 0 && (
+              <div class="grid gap-4 md:grid-cols-2">
+                {data.features.map((feature) => (
+                  <div class="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
+                    <p class="text-sm text-slate-100">{feature}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {data.technologies && data.technologies.length > 0 && (
+              <div class="space-y-3">
+                <h2 class="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Tecnologías</h2>
+                <div class="flex flex-wrap gap-3">
+                  {data.technologies.map((tech) => (
+                    <span class="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs text-slate-200">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {data.process && data.process.length > 0 && (
+              <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-white">Cómo trabajamos este servicio</h2>
+                <div class="grid gap-4 md:grid-cols-3">
+                  {data.process.map((step) => (
+                    <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6">
+                      <span class="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-semibold text-emerald-300">
+                        {step.step}
+                      </span>
+                      <p class="font-semibold text-white">{step.title}</p>
+                      <p class="text-sm text-slate-300 leading-relaxed">{step.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <aside class="space-y-6">
+            <div class="overflow-hidden rounded-3xl border border-slate-700 bg-slate-900/60">
+              <img src={data.image} alt={data.title} class="h-56 w-full object-cover" loading="lazy" />
+              <div class="space-y-4 p-6">
+                <p class="text-sm text-slate-400">Última actualización</p>
+                <p class="text-lg font-semibold text-white">
+                  {formatDate(data.updatedDate ?? data.publishDate ?? new Date())}
+                </p>
+                {data.pricing?.price && (
+                  <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-center">
+                    <p class="text-sm uppercase tracking-[0.2em] text-emerald-200">Desde</p>
+                    <p class="text-2xl font-bold text-emerald-300">{data.pricing.price}</p>
+                    {data.pricing.note && (
+                      <p class="mt-2 text-xs text-emerald-200/80">{data.pricing.note}</p>
+                    )}
+                  </div>
+                )}
+                <a href="/contacto" class="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-5 py-3 font-semibold text-white transition-all hover:from-emerald-600 hover:to-cyan-600">
+                  Conversar sobre el servicio
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-slate-700 bg-slate-900/60 p-6 space-y-4">
+              <h2 class="text-lg font-semibold text-white">Beneficios que garantizamos</h2>
+              <ul class="space-y-3 text-sm text-slate-300">
+                <li class="flex gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>
+                  <span>Equipo senior dedicado y acompañamiento directo de dirección de proyecto.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>
+                  <span>Indicadores de éxito y tableros compartidos desde el primer sprint.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>
+                  <span>Soporte 24/7 y transferencia de conocimiento a tus equipos internos.</span>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-20">
+      <div class="container mx-auto px-6">
+        <div class="rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-10 text-center">
+          <h2 class="text-2xl font-bold text-white mb-4">¿Tienes preguntas sobre {data.title.toLowerCase()}?</h2>
+          <p class="text-slate-200 mb-6">
+            Escríbenos y agenda una sesión con nuestros especialistas para revisar tus requerimientos específicos.
+          </p>
+          <a href="/contacto" class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-slate-900/80 px-8 py-3 text-sm font-semibold text-emerald-200 transition-all hover:border-emerald-400 hover:text-emerald-100">
+            Contactar a Devint
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

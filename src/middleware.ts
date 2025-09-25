@@ -2,10 +2,11 @@
 import type { APIRoute, MiddlewareNext } from "astro";
 
 // Configuration - Use environment-specific URLs
-// If deploying to Render, set RENDER_EXTERNAL_URL in the environment
+// If deploying to Vercel, set VERCEL_URL (handled automáticamente por la plataforma)
 const SITE_URL = import.meta.env.PROD
-  ? import.meta.env.RENDER_EXTERNAL_URL ||
-    "https://generacion-urbano-costu.onrender.com"
+  ? import.meta.env.VERCEL_URL
+    ? `https://${import.meta.env.VERCEL_URL}`
+    : "https://devint.cl"
   : import.meta.env.DEV
   ? "http://localhost:4321"
   : "http://127.0.0.1:4321";

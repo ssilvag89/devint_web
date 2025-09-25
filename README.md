@@ -1,43 +1,42 @@
-# Astro Starter Kit: Minimal
+# Devint.cl
 
-```sh
-npm create astro@latest -- --template minimal
+Sitio corporativo estático construido con [Astro](https://astro.build) para mostrar la oferta de servicios de Devint, contenidos y canales de contacto. El proyecto usa Tailwind CSS y el sistema de collections de Astro para mantener el contenido en archivos Markdown.
+
+## 🧱 Estructura principal
+
+```
+src/
+├── components/       # Header, footer y secciones reutilizables
+├── content/          # Collections (services, blog, etc.)
+├── layouts/          # Layouts base que inyectan SEO y estilos globales
+├── pages/            # Rutas del sitio (estáticas y dinámicas)
+└── utils/            # Utilidades de formato, SEO y validaciones
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+El contenido dinámico para servicios y blog se gestiona desde `src/content`. Cada archivo Markdown se valida contra esquemas Zod y se expone en las páginas a través de `getCollection`.
 
-## 🚀 Project Structure
+## 🚀 Scripts disponibles
 
-Inside of your Astro project, you'll see the following folders and files:
+| Comando        | Descripción                              |
+| -------------- | ---------------------------------------- |
+| `npm install`  | Instala las dependencias                 |
+| `npm run dev`  | Inicia el entorno local en `localhost:4321` |
+| `npm run build`| Genera la salida estática en `./dist`    |
+| `npm run preview` | Sirve la build generada para validación |
+| `npm run check`| Ejecuta `astro check` (tipos y accesibilidad básica) |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## 🛠️ Buenas prácticas
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- **Contenido**: crea nuevos servicios o artículos en `src/content/<collection>`. Los campos se autovalidan al ejecutar `npm run build` o `npm run check`.
+- **SEO**: usa el `BaseLayout` y pasa las props `seo` para personalizar título, descripción, canonical y metadatos sociales.
+- **Estilos**: Tailwind está configurado en `tailwind.config.mjs`. Usa `@apply` sólo para componentes reutilizables en `src/styles/tailwind.css`.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 📦 Despliegue
 
-Any static assets, like images, can be placed in the `public/` directory.
+El proyecto está preparado para Vercel (`@astrojs/vercel`) con salida estática. Asegúrate de definir `VERCEL_URL` o `site` para generar canónicas correctas y de limpiar el caché cuando actualices contenido.
 
-## 🧞 Commands
+## ✅ Próximos pasos sugeridos
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Conectar el formulario de contacto con el servicio de envío definitivo (API o plataforma transactional).
+- Añadir pruebas de interfaz o auditorías automáticas (Lighthouse/Playwright) previas al despliegue.
+- Documentar tu pipeline de CI/CD si el proyecto usa revisiones automáticas antes de publicar.

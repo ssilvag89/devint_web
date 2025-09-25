@@ -6,7 +6,7 @@ import vercel from "@astrojs/vercel";
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  output: "static",
+  output: "hybrid",
   adapter: vercel(),
   site: "https://devint.cl",
   compressHTML: true,

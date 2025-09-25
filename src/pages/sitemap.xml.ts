@@ -1,37 +1,54 @@
 import type { APIRoute } from "astro";
+import { getCollection } from "astro:content";
 
 export const GET: APIRoute = async ({ site }) => {
-  const baseUrl = site?.toString() || "https://generacionurbana.cl";
+  const baseUrl = site?.toString() || "https://devint.cl";
 
-  // Static pages
+  const [services, posts] = await Promise.all([
+    getCollection("services"),
+    getCollection("blog"),
+  ]);
+
   const staticPages = [
-    "",
-    "productos",
-    "servicios",
-    "nosotros",
-    "blog",
-    "contacto",
+    {
+      loc: baseUrl,
+      changefreq: "weekly",
+      priority: "1.0",
+      lastmod: new Date(),
+    },
+    ...["servicios", "nosotros", "blog", "contacto"].map((path) => ({
+      loc: `${baseUrl}/${path}`,
+      changefreq: "monthly",
+      priority: "0.8",
+      lastmod: new Date(),
+    })),
   ];
 
-  // Generate XML
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-${staticPages
-  .map((page) => {
-    const url = page ? `${baseUrl}/${page}` : baseUrl;
-    const priority = page === "" ? "1.0" : "0.8";
-    const changefreq = page === "" ? "weekly" : "monthly";
+  const serviceUrls = services.map(({ slug, data }) => ({
+    loc: `${baseUrl}/servicios/${slug}`,
+    changefreq: "quarterly",
+    priority: "0.7",
+    lastmod: data.updatedDate ?? data.publishDate ?? new Date(),
+  }));
 
+  const blogUrls = posts.map(({ slug, data }) => ({
+    loc: `${baseUrl}/blog/${slug}`,
+    changefreq: "monthly",
+    priority: data.featured ? "0.8" : "0.6",
+    lastmod: data.updatedDate ?? data.publishDate,
+  }));
+
+  const urls = [...staticPages, ...serviceUrls, ...blogUrls];
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls
+  .map((entry) => {
     return `  <url>
-    <loc>${url}</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
+    <loc>${entry.loc}</loc>
+    <lastmod>${entry.lastmod.toISOString().split("T")[0]}</lastmod>
+    <changefreq>${entry.changefreq}</changefreq>
+    <priority>${entry.priority}</priority>
   </url>`;
   })
   .join("\n")}

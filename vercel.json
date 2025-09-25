@@ -32,12 +32,5 @@
         }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/costurera-san-bernardo",
-      "destination": "/servicios/costurera-san-bernardo",
-      "permanent": true
-    }
   ]
 }

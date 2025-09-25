@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/common/Header.astro";
+import Footer from "../components/common/Footer.astro";
+import { getCollection } from "astro:content";
+import { formatDate, formatRelativeTime } from "../utils/format";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+---
+
+<BaseLayout
+  title="Blog Devint | Estrategia, desarrollo y tecnología"
+  description="Insights del equipo Devint sobre transformación digital, desarrollo de software, integración de sistemas y cultura DevOps."
+  seo={{ canonical: "https://devint.cl/blog", keywords: "blog devint, transformacion digital, devops" }}
+>
+  <Header />
+
+  <main class="pt-24">
+    <section class="pb-16">
+      <div class="container mx-auto px-6">
+        <div class="mb-12 text-center">
+          <h1 class="text-5xl font-bold text-white mb-4">Ideas para llevar tu tecnología al siguiente nivel</h1>
+          <p class="text-lg text-slate-300 max-w-3xl mx-auto">
+            Compartimos aprendizajes de proyectos reales y prácticas que ayudan a equipos de producto, tecnología y negocio a entregar valor continuo.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2">
+          {posts.map(({ slug, data }) => (
+            <article class="group overflow-hidden rounded-3xl border border-slate-700 bg-slate-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/40">
+              <img src={data.image} alt={data.title} class="h-52 w-full object-cover" loading="lazy" />
+              <div class="space-y-5 p-6">
+                <div class="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-emerald-300">
+                  <span>{data.category}</span>
+                  <span>{formatRelativeTime(data.publishDate)}</span>
+                </div>
+                <h2 class="text-2xl font-semibold text-white group-hover:text-emerald-200">{data.title}</h2>
+                <p class="text-sm leading-relaxed text-slate-300">{data.excerpt}</p>
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                  <span>{formatDate(data.publishDate)}</span>
+                  {data.readingTime && <span>{data.readingTime} min de lectura</span>}
+                </div>
+                <a href={`/blog/${slug}`}
+                   class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition-colors hover:text-emerald-200">
+                  Leer artículo
+                  <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

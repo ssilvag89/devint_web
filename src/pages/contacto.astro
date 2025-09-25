@@ -54,6 +54,7 @@ import Footer from '../components/common/Footer.astro';
                     class="w-full px-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                     placeholder="Tu nombre"
                   />
+                  <p class="mt-2 hidden text-sm text-red-400" data-error-for="nombre"></p>
                 </div>
                 <div>
                   <label for="empresa" class="block text-sm font-medium text-slate-300 mb-2">
@@ -66,6 +67,7 @@ import Footer from '../components/common/Footer.astro';
                     class="w-full px-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                     placeholder="Nombre de tu empresa"
                   />
+                  <p class="mt-2 hidden text-sm text-red-400" data-error-for="empresa"></p>
                 </div>
               </div>
 
@@ -82,6 +84,7 @@ import Footer from '../components/common/Footer.astro';
                     class="w-full px-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                     placeholder="tu@email.com"
                   />
+                  <p class="mt-2 hidden text-sm text-red-400" data-error-for="email"></p>
                 </div>
                 <div>
                   <label for="telefono" class="block text-sm font-medium text-slate-300 mb-2">
@@ -94,6 +97,7 @@ import Footer from '../components/common/Footer.astro';
                     class="w-full px-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                     placeholder="+56 9 XXXX XXXX"
                   />
+                  <p class="mt-2 hidden text-sm text-red-400" data-error-for="telefono"></p>
                 </div>
               </div>
 
@@ -119,6 +123,7 @@ import Footer from '../components/common/Footer.astro';
                   <option value="refactorizacion">Refactorización</option>
                   <option value="otro">Otro</option>
                 </select>
+                <p class="mt-2 hidden text-sm text-red-400" data-error-for="servicio"></p>
               </div>
 
               <div>
@@ -138,6 +143,7 @@ import Footer from '../components/common/Footer.astro';
                   <option value="mas-10m">Más de $10.000.000</option>
                   <option value="por-definir">Por definir</option>
                 </select>
+                <p class="mt-2 hidden text-sm text-red-400" data-error-for="presupuesto"></p>
               </div>
 
               <div>
@@ -152,7 +158,10 @@ import Footer from '../components/common/Footer.astro';
                   class="w-full px-4 py-3 bg-slate-900/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors resize-none"
                   placeholder="Describe tu proyecto, objetivos, plazos y cualquier información relevante..."
                 ></textarea>
+                <p class="mt-2 hidden text-sm text-red-400" data-error-for="mensaje"></p>
               </div>
+
+              <div class="hidden rounded-2xl border border-slate-700 bg-slate-900/60 p-4 text-sm" id="form-message" role="alert"></div>
 
               <button 
                 type="submit"
@@ -253,40 +262,163 @@ import Footer from '../components/common/Footer.astro';
   <Footer />
 </BaseLayout>
 
-<script>
-  // Form handling
-  const form = document.getElementById('contactForm');
-  
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
+<script type="module">
+  import {
+    validateEmail,
+    validateField,
+    validatePhone,
+    sanitizeInput,
+  } from "../utils/validation";
+
+  const form = document.getElementById("contactForm");
+  const messageBox = document.getElementById("form-message");
+
+  const showMessage = (type, message) => {
+    if (!messageBox) return;
+    messageBox.textContent = message;
+    messageBox.classList.remove(
+      "hidden",
+      "text-emerald-200",
+      "text-emerald-300",
+      "text-red-300",
+      "border",
+      "border-emerald-500/40",
+      "border-red-500/40"
+    );
+
+    if (type === "success") {
+      messageBox.classList.add("text-emerald-200", "border", "border-emerald-500/40");
+    } else {
+      messageBox.classList.add("text-red-300", "border", "border-red-500/40");
+    }
+  };
+
+  const hideMessage = () => {
+    if (!messageBox) return;
+    messageBox.classList.add("hidden");
+    messageBox.textContent = "";
+  };
+
+  const setFieldError = (field, errors) => {
+    const fieldError = document.querySelector(`[data-error-for="${field}"]`);
+    const input = document.querySelector(`[name="${field}"]`);
+
+    if (!fieldError || !input) return;
+
+    if (errors.length > 0) {
+      fieldError.textContent = errors[0];
+      fieldError.classList.remove("hidden");
+      input.setAttribute("aria-invalid", "true");
+    } else {
+      fieldError.textContent = "";
+      fieldError.classList.add("hidden");
+      input.removeAttribute("aria-invalid");
+    }
+  };
+
+  const clearErrors = () => {
+    document
+      .querySelectorAll("[data-error-for]")
+      .forEach((element) => element.classList.add("hidden"));
+
+    document
+      .querySelectorAll("[aria-invalid='true']")
+      .forEach((element) => element.removeAttribute("aria-invalid"));
+  };
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!form) return;
+
+    hideMessage();
+    clearErrors();
+
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    // Aquí puedes integrar con tu servicio de email preferido
-    console.log('Datos del formulario:', data);
-    
-    // Mostrar mensaje de éxito
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    
-    submitBtn.innerHTML = `
-      <span>¡Mensaje Enviado!</span>
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-      </svg>
-    `;
-    submitBtn.disabled = true;
-    submitBtn.classList.remove('hover:from-emerald-600', 'hover:to-cyan-600');
-    submitBtn.classList.add('bg-green-500');
-    
-    // Resetear el formulario después de 3 segundos
-    setTimeout(() => {
+    const payload = Object.fromEntries(formData.entries());
+
+    const normalized = {
+      nombre: sanitizeInput(String(payload.nombre ?? "")),
+      empresa: sanitizeInput(String(payload.empresa ?? "")),
+      email: sanitizeInput(String(payload.email ?? "")),
+      telefono: sanitizeInput(String(payload.telefono ?? "")),
+      servicio: String(payload.servicio ?? ""),
+      presupuesto: String(payload.presupuesto ?? ""),
+      mensaje: sanitizeInput(String(payload.mensaje ?? "")),
+    };
+
+    const validations = {
+      nombre: validateField(normalized.nombre, {
+        required: true,
+        minLength: 3,
+        message: "Ingresa tu nombre completo",
+      }),
+      email: validateEmail(normalized.email),
+      servicio: validateField(normalized.servicio, {
+        required: true,
+        message: "Selecciona el servicio de interés",
+      }),
+      mensaje: validateField(normalized.mensaje, {
+        required: true,
+        minLength: 20,
+        message: "Cuéntanos más detalles para ayudarte mejor",
+      }),
+    };
+
+    if (normalized.telefono) {
+      validations.telefono = validatePhone(normalized.telefono);
+    }
+
+    let hasErrors = false;
+    Object.entries(validations).forEach(([field, result]) => {
+      setFieldError(field, result.errors ?? []);
+      if (!result.isValid) {
+        hasErrors = true;
+      }
+    });
+
+    if (hasErrors) {
+      showMessage("error", "Revisa los campos marcados antes de enviar.");
+      return;
+    }
+
+    const submitBtn = form.querySelector("button[type='submit']");
+    const originalText = submitBtn?.innerHTML ?? "Enviar";
+
+    if (submitBtn) {
+      submitBtn.setAttribute("disabled", "true");
+      submitBtn.classList.remove("hover:from-emerald-600", "hover:to-cyan-600");
+      submitBtn.innerHTML = `
+        <span>Enviando...</span>
+        <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v4m0 8v4m8-8h-4M8 12H4m12.364-5.364l-2.828 2.828m-5.656 5.656l-2.828 2.828m0-11.312l2.828 2.828m5.656 5.656l2.828 2.828" />
+        </svg>`;
+    }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(normalized),
+      });
+
+      if (!response.ok) {
+        throw new Error("No pudimos procesar tu mensaje. Inténtalo nuevamente.");
+      }
+
+      showMessage("success", "¡Gracias! Tu mensaje fue enviado. Te contactaremos dentro de las próximas 24 horas.");
       form.reset();
-      submitBtn.innerHTML = originalText;
-      submitBtn.disabled = false;
-      submitBtn.classList.add('hover:from-emerald-600', 'hover:to-cyan-600');
-      submitBtn.classList.remove('bg-green-500');
-    }, 3000);
+    } catch (error) {
+      showMessage(
+        "error",
+        error instanceof Error ? error.message : "Ocurrió un problema inesperado. Inténtalo nuevamente más tarde."
+      );
+    } finally {
+      if (submitBtn) {
+        submitBtn.innerHTML = originalText;
+        submitBtn.removeAttribute("disabled");
+        submitBtn.classList.add("hover:from-emerald-600", "hover:to-cyan-600");
+      }
+    }
   });
 </script>
