@@ -6,8 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "check": "astro check"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.5.1",
