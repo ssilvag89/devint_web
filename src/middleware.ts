@@ -24,7 +24,7 @@ const CSP_POLICY = `
   base-uri 'self';
   form-action 'self';
   upgrade-insecure-requests;
-`
+` 
   .replace(/\s+/g, " ")
   .trim();
 
