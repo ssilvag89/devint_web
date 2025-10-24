@@ -21,7 +21,7 @@ const CSP_POLICY = `
   connect-src 'self' https://www.google-analytics.com https://formspree.io;
   worker-src 'self' blob:;
   frame-ancestors 'none';
-  base-uri 'self';
+  base-uri 'self';  
   form-action 'self';
   upgrade-insecure-requests;
 ` 
