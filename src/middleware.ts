@@ -11,14 +11,14 @@ const SITE_URL = import.meta.env.PROD
   : "http://127.0.0.1:4321";
 const CSP_POLICY = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://formspree.io;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://formspree.io https://www.google.com https://www.gstatic.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' data: https: blob:;
   media-src 'self' https:;
   object-src 'none';
-  frame-src 'self' https://www.youtube.com https://formspree.io;
-  connect-src 'self' https://www.google-analytics.com https://formspree.io;
+  frame-src 'self' https://www.youtube.com https://formspree.io https://www.google.com https://recaptcha.google.com;
+  connect-src 'self' https://www.google-analytics.com https://formspree.io https://www.google.com https://www.gstatic.com;
   worker-src 'self' blob:;
   frame-ancestors 'none';
   base-uri 'self';

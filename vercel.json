@@ -1,6 +1,10 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "env": {
+    "FORMSPREE_FORM_ID": "xanprgdl",
+    "PUBLIC_RECAPTCHA_SITE_KEY": "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+  },
   "headers": [
     {
       "source": "/(.*)",
