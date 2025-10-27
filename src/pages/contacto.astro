@@ -327,9 +327,12 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 </BaseLayout>
 
 <!-- reCAPTCHA v3 -->
+<script define:vars={{ siteKey }}>
+  window.RECAPTCHA_SITE_KEY = siteKey;
+</script>
 <script
-  src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-></script>
+  src={`https://www.google.com/recaptcha/api.js?render=${siteKey}`}
+  is:inline></script>
 
 <script>
   // Declaraciones de tipos para TypeScript
@@ -342,6 +345,7 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           options: { action: string }
         ) => Promise<string>;
       };
+      RECAPTCHA_SITE_KEY: string;
     }
   }
 
@@ -351,22 +355,24 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 
   async function getRecaptchaToken(): Promise<string> {
     if (!window.grecaptcha) return "";
-    return await window.grecaptcha.execute(
-      "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
-      {
-        action: "submit",
-      }
-    );
+    return await window.grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {
+      action: "submit",
+    });
   }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    console.log("🚀 Formulario enviado");
+    console.log("📌 Site Key:", window.RECAPTCHA_SITE_KEY);
+    console.log("📌 grecaptcha disponible:", !!window.grecaptcha);
 
     // Honeypot
     const hp = form.querySelector(
       'input[name="company"]'
     ) as HTMLInputElement | null;
     if (hp && hp.value.trim()) {
+      console.log("❌ Honeypot detectado - posible bot");
       if (msg)
         msg.textContent = "No pudimos enviar tu mensaje. Inténtalo nuevamente.";
       return;
@@ -381,13 +387,20 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     submitBtn.disabled = true;
 
     try {
+      console.log("🔐 Obteniendo token reCAPTCHA...");
       // Obtener token reCAPTCHA y setear en el hidden
       const token = await getRecaptchaToken();
+      console.log(
+        "✅ Token obtenido:",
+        token ? token.substring(0, 20) + "..." : "VACÍO"
+      );
+
       const tokenInput = form.querySelector(
         'input[name="g-recaptcha-response"]'
       ) as HTMLInputElement | null;
       if (tokenInput) tokenInput.value = token;
 
+      console.log("📤 Enviando a Formspree:", form.action);
       // Enviar a Formspree con respuesta JSON
       const formData = new FormData(form);
       const res = await fetch(form.action, {
@@ -396,7 +409,10 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         body: formData,
       });
 
+      console.log("📥 Respuesta de Formspree:", res.status, res.statusText);
+
       if (res.ok) {
+        console.log("✅ Mensaje enviado exitosamente");
         submitBtn.innerHTML = `
           <span>¡Mensaje Enviado!</span>
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -408,11 +424,14 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           msg.textContent = "Gracias, te contactaremos dentro de 24 horas.";
         form.reset();
       } else {
+        const errorData = await res.json();
+        console.error("❌ Error de Formspree:", errorData);
         if (msg)
           msg.textContent =
             "No pudimos enviar tu mensaje. Inténtalo nuevamente.";
       }
     } catch (err) {
+      console.error("❌ Error completo:", err);
       if (msg)
         msg.textContent = "Ocurrió un error inesperado. Vuelve a intentar.";
     } finally {
