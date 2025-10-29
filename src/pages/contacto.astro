@@ -2,9 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/common/Header.astro";
 import Footer from "../components/common/Footer.astro";
-
-// reCAPTCHA v3 Site Key (pública)
-const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
 <BaseLayout
@@ -74,9 +71,6 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
                   /></label
                 >
               </div>
-
-              <!-- reCAPTCHA token -->
-              <input type="hidden" name="g-recaptcha-response" />
 
               <!-- (Opcional) asunto para tus correos -->
               <input
@@ -326,146 +320,15 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
   <Footer />
 </BaseLayout>
 
-<!-- reCAPTCHA v3 - Con detección de entorno -->
-<script define:vars={{ siteKey }}>
-  // Detectar si estamos en producción
-  const isProduction =
-    window.location.hostname !== "localhost" &&
-    window.location.hostname !== "127.0.0.1";
-
-  // En producción usar la clave real, en desarrollo NO usar reCAPTCHA
-  window.RECAPTCHA_SITE_KEY = isProduction ? siteKey : null;
-  window.RECAPTCHA_ENABLED = isProduction;
-
-  console.log(
-    "🔧 Site Key:",
-    window.RECAPTCHA_SITE_KEY || "NINGUNA (desarrollo)"
-  );
-  console.log("🌍 Entorno:", isProduction ? "PRODUCCIÓN" : "DESARROLLO");
-  console.log("🔐 reCAPTCHA habilitado:", window.RECAPTCHA_ENABLED);
-
-  // Cargar el script SOLO en producción
-  if (
-    window.RECAPTCHA_ENABLED &&
-    !document.querySelector('script[src*="recaptcha/api.js"]')
-  ) {
-    console.log("📦 Cargando script de reCAPTCHA...");
-    const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${window.RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => console.log("✅ Script de reCAPTCHA cargado");
-    script.onerror = () =>
-      console.error("❌ Error al cargar script de reCAPTCHA");
-    document.head.appendChild(script);
-  } else {
-    console.log(
-      "⚠️ reCAPTCHA deshabilitado - Formspree usará Formshield + Honeypot"
-    );
-  }
-</script>
-
+<!-- Manejo del formulario con Formspree (Formshield + Honeypot) -->
 <script>
-  // Declaraciones de tipos para TypeScript
-  declare global {
-    interface Window {
-      grecaptcha: {
-        ready: (callback: () => void) => void;
-        execute: (
-          siteKey: string,
-          options: { action: string }
-        ) => Promise<string>;
-      };
-      RECAPTCHA_SITE_KEY: string;
-      RECAPTCHA_ENABLED: boolean;
-    }
-  }
-
-  // Manejo de envío con reCAPTCHA v3 + Formspree
   const form = document.getElementById("contactForm") as HTMLFormElement | null;
   const msg = document.getElementById("formMsg") as HTMLElement | null;
-
-  // Función para esperar a que grecaptcha esté disponible
-  function waitForGrecaptcha(maxAttempts = 50): Promise<boolean> {
-    return new Promise((resolve) => {
-      let attempts = 0;
-      console.log("⏳ Esperando a que grecaptcha esté disponible...");
-      const checkInterval = setInterval(() => {
-        attempts++;
-        console.log(
-          `🔍 Intento ${attempts}: grecaptcha =`,
-          typeof window.grecaptcha
-        );
-        if (
-          window.grecaptcha &&
-          typeof window.grecaptcha.ready === "function"
-        ) {
-          clearInterval(checkInterval);
-          console.log("✅ grecaptcha cargado correctamente");
-          resolve(true);
-        } else if (attempts >= maxAttempts) {
-          clearInterval(checkInterval);
-          console.error(
-            "❌ Timeout esperando grecaptcha después de",
-            attempts,
-            "intentos"
-          );
-          resolve(false);
-        }
-      }, 200); // Verificar cada 200ms (total: 10 segundos)
-    });
-  }
-
-  async function getRecaptchaToken(): Promise<string> {
-    // Si no está habilitado (desarrollo), retornar vacío
-    if (!window.RECAPTCHA_ENABLED) {
-      console.log(
-        "⚠️ reCAPTCHA deshabilitado en desarrollo - no se generará token"
-      );
-      return "";
-    }
-
-    // Esperar a que grecaptcha esté disponible
-    const isAvailable = await waitForGrecaptcha();
-    if (!isAvailable) {
-      console.error("❌ grecaptcha no se cargó a tiempo");
-      return "";
-    }
-
-    return new Promise((resolve) => {
-      window.grecaptcha.ready(async () => {
-        try {
-          console.log(
-            "🔑 grecaptcha.ready() - Ejecutando con Site Key:",
-            window.RECAPTCHA_SITE_KEY
-          );
-          const token = await window.grecaptcha.execute(
-            window.RECAPTCHA_SITE_KEY,
-            {
-              action: "submit",
-            }
-          );
-          console.log(
-            "✅ Token generado exitosamente:",
-            token.substring(0, 30) + "..."
-          );
-          resolve(token);
-        } catch (error) {
-          console.error("❌ Error al ejecutar grecaptcha.execute():", error);
-          resolve("");
-        }
-      });
-    });
-  }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    console.log("🚀 Formulario enviado");
-    console.log("📌 Site Key:", window.RECAPTCHA_SITE_KEY);
-    console.log("📌 grecaptcha disponible:", !!window.grecaptcha);
-
-    // Honeypot
+    // Verificar honeypot (anti-bot)
     const hp = form.querySelector(
       'input[name="company"]'
     ) as HTMLInputElement | null;
@@ -483,23 +346,10 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 
     const originalHTML = submitBtn.innerHTML;
     submitBtn.disabled = true;
+    submitBtn.innerHTML = "<span>Enviando...</span>";
 
     try {
-      console.log("🔐 Obteniendo token reCAPTCHA...");
-      // Obtener token reCAPTCHA y setear en el hidden
-      const token = await getRecaptchaToken();
-      console.log(
-        "✅ Token obtenido:",
-        token ? token.substring(0, 20) + "..." : "VACÍO"
-      );
-
-      const tokenInput = form.querySelector(
-        'input[name="g-recaptcha-response"]'
-      ) as HTMLInputElement | null;
-      if (tokenInput) tokenInput.value = token;
-
-      console.log("📤 Enviando a Formspree:", form.action);
-      // Enviar a Formspree con respuesta JSON
+      // Enviar a Formspree
       const formData = new FormData(form);
       const res = await fetch(form.action, {
         method: "POST",
@@ -507,10 +357,7 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         body: formData,
       });
 
-      console.log("📥 Respuesta de Formspree:", res.status, res.statusText);
-
       if (res.ok) {
-        console.log("✅ Mensaje enviado exitosamente");
         submitBtn.innerHTML = `
           <span>¡Mensaje Enviado!</span>
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -529,7 +376,7 @@ const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
             "No pudimos enviar tu mensaje. Inténtalo nuevamente.";
       }
     } catch (err) {
-      console.error("❌ Error completo:", err);
+      console.error("❌ Error:", err);
       if (msg)
         msg.textContent = "Ocurrió un error inesperado. Vuelve a intentar.";
     } finally {

@@ -1,5 +1,5 @@
 interface ImportMetaEnv {
-  readonly PUBLIC_RECAPTCHA_SITE_KEY: string;
+  // Aquí puedes agregar variables de entorno públicas si las necesitas en el futuro
 }
 
 interface ImportMeta {
