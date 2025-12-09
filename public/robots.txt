@@ -2,12 +2,13 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://generacionurbana.cl/sitemap.xml
+Sitemap: https://devint.cl/sitemap.xml
 
 # Disallow admin/private areas
 Disallow: /admin/
 Disallow: /private/
 Disallow: /_astro/
+Disallow: /api/
 
 # SEO-friendly crawl delay
 Crawl-delay: 1

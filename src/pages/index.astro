@@ -1,20 +1,105 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/common/Header.astro';
-import Footer from '../components/common/Footer.astro';
-import Hero from '../components/sections/Hero.astro';
-import Development from '../components/sections/Development.astro';
-import Integrations from '../components/sections/Integrations.astro';
-import Consulting from '../components/sections/Consulting.astro';
-import CloudDesign from '../components/sections/CloudDesign.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/common/Header.astro";
+import Footer from "../components/common/Footer.astro";
+import Hero from "../components/sections/Hero.astro";
+import Development from "../components/sections/Development.astro";
+import Integrations from "../components/sections/Integrations.astro";
+import Consulting from "../components/sections/Consulting.astro";
+import CloudDesign from "../components/sections/CloudDesign.astro";
+import JsonLd from "../components/seo/JsonLd.astro";
+
+// Schema.org para empresa de desarrollo de software
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Devint",
+  alternateName: "Devint Chile",
+  url: "https://devint.cl",
+  logo: "https://devint.cl/images/logos/devint-logo.png",
+  description:
+    "Empresa de desarrollo de software a medida en Chile. Creamos aplicaciones web, móviles y sistemas empresariales personalizados.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Santiago",
+    addressRegion: "Región Metropolitana",
+    addressCountry: "CL",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Chile",
+  },
+  sameAs: ["https://www.linkedin.com/company/devint"],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    url: "https://devint.cl/contacto",
+    availableLanguage: ["Spanish"],
+  },
+};
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Servicios de Desarrollo de Software",
+  itemListElement: [
+    {
+      "@type": "Service",
+      position: 1,
+      name: "Desarrollo de Software a Medida",
+      description:
+        "Creamos software personalizado para automatizar y optimizar los procesos de tu empresa",
+    },
+    {
+      "@type": "Service",
+      position: 2,
+      name: "Desarrollo de Aplicaciones Móviles",
+      description: "Apps nativas e híbridas para iOS y Android",
+    },
+    {
+      "@type": "Service",
+      position: 3,
+      name: "Desarrollo Web",
+      description: "Páginas web profesionales y aplicaciones web empresariales",
+    },
+    {
+      "@type": "Service",
+      position: 4,
+      name: "Integraciones API",
+      description: "Conectamos tus sistemas con APIs REST y SOAP",
+    },
+    {
+      "@type": "Service",
+      position: 5,
+      name: "Consultoría SAP",
+      description: "Implementación y soporte de soluciones SAP",
+    },
+  ],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Devint",
+  url: "https://devint.cl",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://devint.cl/servicios?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
 ---
 
-<BaseLayout 
-  title="Devint - Tu Partner Tecnológico | Desarrollo de Software y Consultoría"
-  description="Transformamos ideas en soluciones tecnológicas innovadoras. Desarrollo de software, aplicaciones móviles, integraciones, consultoría SAP y servicios cloud."
+<BaseLayout
+  title="Desarrollo de Software a Medida Chile | Aplicaciones Web y Móviles | Devint"
+  description="Empresa de desarrollo de software personalizado en Santiago, Chile. Creamos sistemas a medida, aplicaciones móviles, páginas web profesionales, automatización de procesos y transformación digital para empresas y PYMES. Cotiza gratis."
 >
+  <JsonLd schema={organizationSchema} />
+  <JsonLd schema={servicesSchema} />
+  <JsonLd schema={websiteSchema} />
+
   <Header />
-  
+
   <main>
     <Hero />
     <Development />
@@ -22,6 +107,6 @@ import CloudDesign from '../components/sections/CloudDesign.astro';
     <Consulting />
     <CloudDesign />
   </main>
-  
+
   <Footer />
 </BaseLayout>
