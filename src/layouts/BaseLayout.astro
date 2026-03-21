@@ -1,5 +1,5 @@
 ---
-import GoogleAnalytics from '../components/analytics/GoogleAnalytics.astro';
+import GoogleAnalytics from "../components/analytics/GoogleAnalytics.astro";
 
 export interface Props {
   title: string;
@@ -86,17 +86,20 @@ const {
     <script>
       // Smooth scrolling for anchor links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (this: HTMLAnchorElement, e: Event) {
-          e.preventDefault();
-          const href = this.getAttribute("href");
-          const target = href ? document.querySelector(href) : null;
-          if (target) {
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        });
+        anchor.addEventListener(
+          "click",
+          function (this: HTMLAnchorElement, e: Event) {
+            e.preventDefault();
+            const href = this.getAttribute("href");
+            const target = href ? document.querySelector(href) : null;
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          },
+        );
       });
     </script>
   </body>

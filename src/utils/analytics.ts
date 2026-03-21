@@ -21,21 +21,21 @@ export function trackEvent(
     event_label?: string;
     value?: number;
     [key: string]: any;
-  }
+  },
 ) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', eventName, parameters);
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", eventName, parameters);
   }
 }
 
 /**
  * Track a contact form submission
  */
-export function trackContactForm(formName: string = 'contact') {
-  trackEvent('form_submit', {
-    event_category: 'engagement',
+export function trackContactForm(formName: string = "contact") {
+  trackEvent("form_submit", {
+    event_category: "engagement",
     event_label: formName,
-    form_type: 'contact'
+    form_type: "contact",
   });
 }
 
@@ -43,10 +43,10 @@ export function trackContactForm(formName: string = 'contact') {
  * Track a service inquiry
  */
 export function trackServiceInquiry(serviceName: string) {
-  trackEvent('service_inquiry', {
-    event_category: 'conversion',
+  trackEvent("service_inquiry", {
+    event_category: "conversion",
     event_label: serviceName,
-    value: 1
+    value: 1,
   });
 }
 
@@ -54,10 +54,10 @@ export function trackServiceInquiry(serviceName: string) {
  * Track a CTA click
  */
 export function trackCTAClick(ctaName: string, destination?: string) {
-  trackEvent('cta_click', {
-    event_category: 'engagement',
+  trackEvent("cta_click", {
+    event_category: "engagement",
     event_label: ctaName,
-    destination: destination || 'unknown'
+    destination: destination || "unknown",
   });
 }
 
@@ -65,10 +65,10 @@ export function trackCTAClick(ctaName: string, destination?: string) {
  * Track a quote request
  */
 export function trackQuoteRequest(service?: string) {
-  trackEvent('quote_request', {
-    event_category: 'conversion',
-    event_label: service || 'general',
-    value: 1
+  trackEvent("quote_request", {
+    event_category: "conversion",
+    event_label: service || "general",
+    value: 1,
   });
 }
 
@@ -76,10 +76,10 @@ export function trackQuoteRequest(service?: string) {
  * Track phone click
  */
 export function trackPhoneClick(phoneNumber: string) {
-  trackEvent('phone_click', {
-    event_category: 'engagement',
-    event_label: 'phone_call',
-    phone_number: phoneNumber
+  trackEvent("phone_click", {
+    event_category: "engagement",
+    event_label: "phone_call",
+    phone_number: phoneNumber,
   });
 }
 
@@ -87,10 +87,10 @@ export function trackPhoneClick(phoneNumber: string) {
  * Track email click
  */
 export function trackEmailClick(email: string) {
-  trackEvent('email_click', {
-    event_category: 'engagement',
-    event_label: 'email_contact',
-    email_address: email
+  trackEvent("email_click", {
+    event_category: "engagement",
+    event_label: "email_contact",
+    email_address: email,
   });
 }
 
@@ -98,11 +98,11 @@ export function trackEmailClick(email: string) {
  * Track social media click
  */
 export function trackSocialClick(platform: string, url: string) {
-  trackEvent('social_click', {
-    event_category: 'engagement',
+  trackEvent("social_click", {
+    event_category: "engagement",
     event_label: platform,
     social_network: platform,
-    social_url: url
+    social_url: url,
   });
 }
 
@@ -110,10 +110,10 @@ export function trackSocialClick(platform: string, url: string) {
  * Track blog post read
  */
 export function trackBlogRead(postTitle: string, readPercentage?: number) {
-  trackEvent('blog_read', {
-    event_category: 'engagement',
+  trackEvent("blog_read", {
+    event_category: "engagement",
     event_label: postTitle,
-    value: readPercentage || 0
+    value: readPercentage || 0,
   });
 }
 
@@ -121,9 +121,9 @@ export function trackBlogRead(postTitle: string, readPercentage?: number) {
  * Track case study view
  */
 export function trackCaseStudyView(caseStudyName: string) {
-  trackEvent('case_study_view', {
-    event_category: 'engagement',
-    event_label: caseStudyName
+  trackEvent("case_study_view", {
+    event_category: "engagement",
+    event_label: caseStudyName,
   });
 }
 
@@ -131,10 +131,10 @@ export function trackCaseStudyView(caseStudyName: string) {
  * Track search
  */
 export function trackSearch(searchTerm: string, resultsCount?: number) {
-  trackEvent('search', {
-    event_category: 'engagement',
+  trackEvent("search", {
+    event_category: "engagement",
     search_term: searchTerm,
-    value: resultsCount || 0
+    value: resultsCount || 0,
   });
 }
 
@@ -143,14 +143,14 @@ export function trackSearch(searchTerm: string, resultsCount?: number) {
  */
 export function trackVideoEngagement(
   videoTitle: string,
-  action: 'play' | 'pause' | 'complete',
-  progress?: number
+  action: "play" | "pause" | "complete",
+  progress?: number,
 ) {
   trackEvent(`video_${action}`, {
-    event_category: 'engagement',
+    event_category: "engagement",
     event_label: videoTitle,
     video_title: videoTitle,
-    value: progress || 0
+    value: progress || 0,
   });
 }
 
@@ -158,10 +158,10 @@ export function trackVideoEngagement(
  * Track newsletter signup
  */
 export function trackNewsletterSignup() {
-  trackEvent('newsletter_signup', {
-    event_category: 'conversion',
-    event_label: 'newsletter',
-    value: 1
+  trackEvent("newsletter_signup", {
+    event_category: "conversion",
+    event_label: "newsletter",
+    value: 1,
   });
 }
 
@@ -169,10 +169,10 @@ export function trackNewsletterSignup() {
  * Track conversions (leads)
  */
 export function trackConversion(conversionType: string, value?: number) {
-  trackEvent('conversion', {
-    event_category: 'conversion',
+  trackEvent("conversion", {
+    event_category: "conversion",
     event_label: conversionType,
-    value: value || 1
+    value: value || 1,
   });
 }
 
@@ -180,9 +180,9 @@ export function trackConversion(conversionType: string, value?: number) {
  * Track custom dimension (user properties)
  */
 export function setUserProperty(propertyName: string, value: string) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('set', 'user_properties', {
-      [propertyName]: value
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("set", "user_properties", {
+      [propertyName]: value,
     });
   }
 }
@@ -191,10 +191,10 @@ export function setUserProperty(propertyName: string, value: string) {
  * Track page view manually (useful for SPAs)
  */
 export function trackPageView(pagePath?: string, pageTitle?: string) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', 'G-YLEKSPRT2V', {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("config", "G-YLEKSPRT2V", {
       page_path: pagePath || window.location.pathname,
-      page_title: pageTitle || document.title
+      page_title: pageTitle || document.title,
     });
   }
 }
@@ -203,10 +203,10 @@ export function trackPageView(pagePath?: string, pageTitle?: string) {
  * Enable/disable analytics (GDPR compliance)
  */
 export function setAnalyticsConsent(granted: boolean) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('consent', 'update', {
-      analytics_storage: granted ? 'granted' : 'denied',
-      ad_storage: 'denied' // Always deny ad storage for privacy
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("consent", "update", {
+      analytics_storage: granted ? "granted" : "denied",
+      ad_storage: "denied", // Always deny ad storage for privacy
     });
   }
 }
@@ -215,10 +215,10 @@ export function setAnalyticsConsent(granted: boolean) {
  * Track error or exception
  */
 export function trackError(errorMessage: string, fatal: boolean = false) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'exception', {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "exception", {
       description: errorMessage,
-      fatal: fatal
+      fatal: fatal,
     });
   }
 }

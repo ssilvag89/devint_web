@@ -343,19 +343,19 @@ import Footer from "../components/common/Footer.astro";
 
   // Validación en tiempo real para bloquear caracteres inválidos
   const nombreInput = document.getElementById(
-    "nombre"
+    "nombre",
   ) as HTMLInputElement | null;
   const empresaInput = document.getElementById(
-    "empresa"
+    "empresa",
   ) as HTMLInputElement | null;
   const telefonoInput = document.getElementById(
-    "telefono"
+    "telefono",
   ) as HTMLInputElement | null;
   const mensajeInput = document.getElementById(
-    "mensaje"
+    "mensaje",
   ) as HTMLTextAreaElement | null;
   const servicioSelect = document.getElementById(
-    "servicio"
+    "servicio",
   ) as HTMLSelectElement | null;
 
   // Solo letras y espacios
@@ -385,11 +385,11 @@ import Footer from "../components/common/Footer.astro";
   // Track servicio selection
   servicioSelect?.addEventListener("change", (e) => {
     const target = e.target as HTMLSelectElement;
-    if (target.value && typeof window.gtag !== 'undefined') {
-      window.gtag('event', 'service_select', {
-        event_category: 'engagement',
+    if (target.value && typeof window.gtag !== "undefined") {
+      window.gtag("event", "service_select", {
+        event_category: "engagement",
         event_label: target.value,
-        service_type: target.value
+        service_type: target.value,
       });
     }
   });
@@ -399,7 +399,7 @@ import Footer from "../components/common/Footer.astro";
 
     // Verificar honeypot (anti-bot)
     const hp = form.querySelector(
-      'input[name="company"]'
+      'input[name="company"]',
     ) as HTMLInputElement | null;
     if (hp && hp.value.trim()) {
       if (msg)
@@ -408,7 +408,7 @@ import Footer from "../components/common/Footer.astro";
     }
 
     const submitBtn = form.querySelector(
-      'button[type="submit"]'
+      'button[type="submit"]',
     ) as HTMLButtonElement | null;
     if (!submitBtn) return;
 
@@ -416,12 +416,12 @@ import Footer from "../components/common/Footer.astro";
     submitBtn.disabled = true;
 
     // Track form submission attempt
-    const servicioValue = servicioSelect?.value || 'no-especificado';
-    if (typeof window.gtag !== 'undefined') {
-      window.gtag('event', 'form_start', {
-        event_category: 'engagement',
-        event_label: 'contact_form',
-        service_interest: servicioValue
+    const servicioValue = servicioSelect?.value || "no-especificado";
+    if (typeof window.gtag !== "undefined") {
+      window.gtag("event", "form_start", {
+        event_category: "engagement",
+        event_label: "contact_form",
+        service_interest: servicioValue,
       });
     }
 
@@ -457,21 +457,21 @@ import Footer from "../components/common/Footer.astro";
 
       if (res.ok) {
         // Track successful form submission (CONVERSION!)
-        if (typeof window.gtag !== 'undefined') {
-          window.gtag('event', 'generate_lead', {
-            event_category: 'conversion',
+        if (typeof window.gtag !== "undefined") {
+          window.gtag("event", "generate_lead", {
+            event_category: "conversion",
             event_label: servicioValue,
             service_interest: servicioValue,
             value: 1,
-            currency: 'USD'
+            currency: "USD",
           });
-          
+
           // Also track as general conversion
-          window.gtag('event', 'conversion', {
-            send_to: 'G-YLEKSPRT2V',
-            event_category: 'conversion',
-            event_label: 'contact_form_submission',
-            value: 1
+          window.gtag("event", "conversion", {
+            send_to: "G-YLEKSPRT2V",
+            event_category: "conversion",
+            event_label: "contact_form_submission",
+            value: 1,
           });
         }
 
@@ -497,14 +497,14 @@ import Footer from "../components/common/Footer.astro";
         console.error("❌ Error de Formspree:", errorData);
         console.error(
           "❌ Detalles de errores:",
-          JSON.stringify(errorData, null, 2)
+          JSON.stringify(errorData, null, 2),
         );
 
         // Track form error
-        if (typeof window.gtag !== 'undefined') {
-          window.gtag('event', 'exception', {
-            description: `Form submission error: ${errorData.error || 'Unknown'}`,
-            fatal: false
+        if (typeof window.gtag !== "undefined") {
+          window.gtag("event", "exception", {
+            description: `Form submission error: ${errorData.error || "Unknown"}`,
+            fatal: false,
           });
         }
 
@@ -527,10 +527,10 @@ import Footer from "../components/common/Footer.astro";
       console.error("❌ Error:", err);
 
       // Track network error
-      if (typeof window.gtag !== 'undefined') {
-        window.gtag('event', 'exception', {
+      if (typeof window.gtag !== "undefined") {
+        window.gtag("event", "exception", {
           description: `Network error: ${err.message}`,
-          fatal: false
+          fatal: false,
         });
       }
 
@@ -551,7 +551,7 @@ import Footer from "../components/common/Footer.astro";
           msg.classList.remove(
             "text-cyan-400",
             "text-green-400",
-            "text-red-400"
+            "text-red-400",
           );
         }
       }, 5000);
