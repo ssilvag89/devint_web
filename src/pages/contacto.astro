@@ -354,6 +354,9 @@ import Footer from "../components/common/Footer.astro";
   const mensajeInput = document.getElementById(
     "mensaje"
   ) as HTMLTextAreaElement | null;
+  const servicioSelect = document.getElementById(
+    "servicio"
+  ) as HTMLSelectElement | null;
 
   // Solo letras y espacios
   nombreInput?.addEventListener("input", (e) => {
@@ -379,6 +382,18 @@ import Footer from "../components/common/Footer.astro";
     target.value = target.value.replace(/[^A-Za-z0-9À-ÿ .,;:?¿!¡\-_()]/g, "");
   });
 
+  // Track servicio selection
+  servicioSelect?.addEventListener("change", (e) => {
+    const target = e.target as HTMLSelectElement;
+    if (target.value && typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'service_select', {
+        event_category: 'engagement',
+        event_label: target.value,
+        service_type: target.value
+      });
+    }
+  });
+
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -399,6 +414,16 @@ import Footer from "../components/common/Footer.astro";
 
     const originalHTML = submitBtn.innerHTML;
     submitBtn.disabled = true;
+
+    // Track form submission attempt
+    const servicioValue = servicioSelect?.value || 'no-especificado';
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'form_start', {
+        event_category: 'engagement',
+        event_label: 'contact_form',
+        service_interest: servicioValue
+      });
+    }
 
     // Animación de carga más visual
     submitBtn.innerHTML = `
@@ -431,6 +456,25 @@ import Footer from "../components/common/Footer.astro";
       const duration = ((performance.now() - startTime) / 1000).toFixed(1);
 
       if (res.ok) {
+        // Track successful form submission (CONVERSION!)
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'generate_lead', {
+            event_category: 'conversion',
+            event_label: servicioValue,
+            service_interest: servicioValue,
+            value: 1,
+            currency: 'USD'
+          });
+          
+          // Also track as general conversion
+          window.gtag('event', 'conversion', {
+            send_to: 'G-YLEKSPRT2V',
+            event_category: 'conversion',
+            event_label: 'contact_form_submission',
+            value: 1
+          });
+        }
+
         submitBtn.innerHTML = `
           <span class="flex items-center justify-center space-x-2">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -456,6 +500,14 @@ import Footer from "../components/common/Footer.astro";
           JSON.stringify(errorData, null, 2)
         );
 
+        // Track form error
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'exception', {
+            description: `Form submission error: ${errorData.error || 'Unknown'}`,
+            fatal: false
+          });
+        }
+
         if (msg) {
           // Mostrar errores específicos si están disponibles
           if (errorData.errors && Array.isArray(errorData.errors)) {
@@ -473,6 +525,14 @@ import Footer from "../components/common/Footer.astro";
       }
     } catch (err: any) {
       console.error("❌ Error:", err);
+
+      // Track network error
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'exception', {
+          description: `Network error: ${err.message}`,
+          fatal: false
+        });
+      }
 
       if (msg) {
         msg.textContent =

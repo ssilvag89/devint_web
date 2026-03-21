@@ -1,0 +1,227 @@
+---
+// Google Analytics Component
+// Tracking ID: G-YLEKSPRT2V
+const GA_MEASUREMENT_ID = 'G-YLEKSPRT2V';
+---
+
+<!-- Google tag (gtag.js) -->
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+<script define:vars={{ GA_MEASUREMENT_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', GA_MEASUREMENT_ID, {
+    // Enhanced measurement features
+    send_page_view: true,
+    cookie_flags: 'SameSite=None;Secure',
+    anonymize_ip: true, // GDPR compliance
+    allow_google_signals: true,
+    allow_ad_personalization_signals: false
+  });
+</script>
+
+<!-- Enhanced Event Tracking -->
+<script>
+  // Type declarations
+  declare global {
+    interface Window {
+      gtag?: (...args: any[]) => void;
+      dataLayer?: any[];
+    }
+  }
+
+  // Track CTA button clicks
+  document.addEventListener('DOMContentLoaded', () => {
+    // Track all CTA buttons
+    const ctaButtons = document.querySelectorAll('a[href="/contacto"], button[data-cta], a[data-cta]');
+    ctaButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const buttonText = button.textContent?.trim() || 'CTA Click';
+        const buttonHref = button.getAttribute('href') || 'no-link';
+        
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'cta_click', {
+            event_category: 'engagement',
+            event_label: buttonText,
+            value: buttonHref
+          });
+        }
+      });
+    });
+
+    // Track navigation links
+    const navLinks = document.querySelectorAll('nav a, header a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const linkText = link.textContent?.trim() || 'Nav Click';
+        const linkHref = link.getAttribute('href') || '';
+        
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'navigation_click', {
+            event_category: 'navigation',
+            event_label: linkText,
+            page_path: linkHref
+          });
+        }
+      });
+    });
+
+    // Track external links
+    const externalLinks = document.querySelectorAll('a[href^="http"]:not([href*="devint.cl"])');
+    externalLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const linkHref = link.getAttribute('href') || '';
+        
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'click', {
+            event_category: 'outbound',
+            event_label: linkHref,
+            transport_type: 'beacon'
+          });
+        }
+      });
+    });
+
+    // Track scroll depth
+    let scrollDepths = [25, 50, 75, 100];
+    let scrollMarks: Record<number, boolean> = {};
+    
+    window.addEventListener('scroll', () => {
+      const scrollPercent = Math.round(
+        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+      );
+      
+      scrollDepths.forEach(depth => {
+        if (scrollPercent >= depth && !scrollMarks[depth]) {
+          scrollMarks[depth] = true;
+          if (typeof window.gtag !== 'undefined') {
+            window.gtag('event', 'scroll', {
+              event_category: 'engagement',
+              event_label: `${depth}%`,
+              value: depth
+            });
+          }
+        }
+      });
+    });
+
+    // Track form submissions
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+      form.addEventListener('submit', (e) => {
+        const formName = form.getAttribute('name') || form.getAttribute('id') || 'contact_form';
+        
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'form_submit', {
+            event_category: 'engagement',
+            event_label: formName
+          });
+        }
+      });
+    });
+
+    // Track video plays (if you add videos later)
+    const videos = document.querySelectorAll('video, iframe[src*="youtube"], iframe[src*="vimeo"]');
+    videos.forEach((video, index) => {
+      video.addEventListener('play', () => {
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'video_play', {
+            event_category: 'engagement',
+            event_label: `Video ${index + 1}`,
+            video_title: video.getAttribute('title') || `Video ${index + 1}`
+          });
+        }
+      });
+    });
+
+    // Track file downloads
+    const downloadLinks = document.querySelectorAll('a[href$=".pdf"], a[href$=".zip"], a[href$=".doc"], a[href$=".docx"], a[download]');
+    downloadLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const fileName = link.getAttribute('href') || '';
+        
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'file_download', {
+            event_category: 'engagement',
+            event_label: fileName,
+            file_extension: fileName.split('.').pop()
+          });
+        }
+      });
+    });
+
+    // Track time on page
+    let startTime = Date.now();
+    let timeOnPage = 0;
+    
+    // Send time on page when user leaves
+    window.addEventListener('beforeunload', () => {
+      timeOnPage = Math.round((Date.now() - startTime) / 1000); // in seconds
+      
+      if (typeof window.gtag !== 'undefined' && timeOnPage > 5) {
+        window.gtag('event', 'timing_complete', {
+          event_category: 'engagement',
+          name: 'time_on_page',
+          value: timeOnPage,
+          event_label: window.location.pathname
+        });
+      }
+    });
+
+    // Track page visibility (user switches tabs)
+    let visibilityStart = Date.now();
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        const visibleTime = Math.round((Date.now() - visibilityStart) / 1000);
+        if (typeof window.gtag !== 'undefined' && visibleTime > 3) {
+          window.gtag('event', 'page_visibility', {
+            event_category: 'engagement',
+            event_label: 'tab_hidden',
+            value: visibleTime
+          });
+        }
+      } else {
+        visibilityStart = Date.now();
+      }
+    });
+
+    // Track service card clicks
+    const serviceCards = document.querySelectorAll('[data-service], .service-card, a[href^="/servicios/"]');
+    serviceCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        const serviceName = card.getAttribute('data-service') || 
+                          card.querySelector('h3')?.textContent?.trim() || 
+                          'Service';
+        
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'service_view', {
+            event_category: 'engagement',
+            event_label: serviceName
+          });
+        }
+      });
+    });
+
+    // Track errors (optional)
+    window.addEventListener('error', (e) => {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'exception', {
+          description: e.message,
+          fatal: false
+        });
+      }
+    });
+  });
+
+  // Track page view for single page applications (Astro View Transitions)
+  document.addEventListener('astro:page-load', () => {
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('config', 'G-YLEKSPRT2V', {
+        page_path: window.location.pathname,
+        page_title: document.title
+      });
+    }
+  });
+</script>
+
