@@ -17,6 +17,17 @@ seo:
   title: "Software a Medida vs Software Genérico: ¿Cuál Elegir? | Devint Chile"
   description: "Guía para decidir entre desarrollar software propio o usar plataformas como Shopify, WordPress o HubSpot. Criterios claros para empresas en Chile."
   keywords: "software a medida Chile, software genérico vs personalizado, cuando desarrollar software propio, SaaS vs desarrollo, plataformas vs desarrollo personalizado Chile"
+faqs:
+  - question: "¿Cuándo es rentable desarrollar software a medida en vez de usar una plataforma genérica?"
+    answer: "El software a medida se vuelve rentable cuando: (1) la plataforma genérica no puede hacer lo que necesitas sin workarounds costosos, (2) el volumen de uso hace que la licencia mensual supere el costo de mantenimiento de un sistema propio, o (3) el proceso tiene lógica de negocio única que ninguna plataforma estándar soporta. En términos de costo, el break-even con plataformas SaaS de nivel avanzado suele ocurrir entre el año 2 y 5, dependiendo del volumen y cuántos plugins/add-ons se acumulan."
+  - question: "¿Qué tan difícil es migrar desde una plataforma genérica a software propio?"
+    answer: "Depende del tiempo que llevas en la plataforma y la cantidad de datos. Una migración desde una plataforma SaaS con 2-3 años de datos puede costar $5.000-$20.000 USD solo en la migración (sin contar el desarrollo del nuevo sistema). Cuanto más tiempo llevas en una plataforma, más caro es salir: datos históricos, integraciones acumuladas, flujos automatizados y configuraciones que hay que replicar. Por eso la decisión de desarrollo vs. plataforma es mejor tomarla desde el inicio, no cuando el negocio ya depende de la plataforma."
+  - question: "¿El software a medida tiene mejor seguridad que el genérico?"
+    answer: "Depende. Las plataformas grandes (Shopify, WordPress con buena configuración) tienen equipos dedicados a seguridad y actualizaciones constantes. El software a medida puede tener menos vulnerabilidades conocidas públicamente, pero si no tiene mantenimiento activo, acumula deuda de seguridad. La clave no es el tipo de software sino el mantenimiento continuo: software a medida sin actualizaciones es tan o más vulnerable que una plataforma desatendida."
+  - question: "¿Cuánto tiempo de desarrollo tarda el software a medida versus implementar una plataforma?"
+    answer: "Una plataforma como Shopify o HubSpot se puede implementar en días o semanas. Un sistema a medida simple tarda 1-3 meses, uno mediano 3-6 meses, y uno complejo puede tomar 6-12 meses o más. Este tiempo de implementación es uno de los argumentos más fuertes para usar plataformas cuando el tiempo de mercado es crítico."
+  - question: "¿Qué pasa con las actualizaciones y el mantenimiento del software a medida?"
+    answer: "El mantenimiento del software a medida es tu responsabilidad (o del proveedor que contrates). Esto incluye actualizaciones de seguridad, corrección de bugs, adaptaciones a cambios de plataformas externas (APIs que cambian), y nuevas funcionalidades. Un presupuesto realista de mantenimiento es el 15-20% del costo de desarrollo anual. Ignorar esto es uno de los errores más comunes."
 ---
 
 Esta es la pregunta que más nos hacen antes de iniciar un proyecto. Y la respuesta honesta es que depende. Pero hay criterios concretos para tomar esa decisión, y en este artículo te los vamos a dar.
@@ -66,7 +77,7 @@ Si estás construyendo una startup tecnológica, una plataforma de servicios o c
 
 Las plataformas SaaS escalan sus precios con el uso. Cuando llegas a cierto volumen, desarrollar propio puede ser más barato que seguir pagando licencias.
 
-Ejemplo típico: una empresa con 5.000 transacciones mensuales en Shopify puede estar pagando $500-$1.000 USD/mes. Un e-commerce propio puede operar con $80-$150 USD/mes de hosting. El break-even se alcanza en 1-2 años.
+Ejemplo típico: una empresa con 5.000 transacciones mensuales en una plataforma SaaS avanzada puede estar pagando entre $400-$1.500 USD/mes sumando suscripción, apps y comisiones. Un e-commerce propio puede operar con $80-$300 USD/mes de hosting e infraestructura. El break-even se alcanza en un rango de 1,5 a 4 años según el proveedor y volumen.
 
 ### 4. Necesitas integraciones profundas con sistemas existentes
 
@@ -117,7 +128,43 @@ El error opuesto es elegir una plataforma sin considerar los riesgos:
 - **Aumento de precios**: Shopify aumentó sus precios un 33% en 2023. Si dependes completamente de ellos, no tienes opción.
 - **Limitaciones que bloquean el crecimiento**: muchas empresas llegan a un punto donde la plataforma ya no puede hacer lo que necesitan, y migrar en ese punto es mucho más caro que haber desarrollado propio desde el inicio.
 
-## Un marco de decisión práctico
+## Costo total de propiedad: el cálculo que pocos hacen
+
+La comparación más honesta no es precio inicial vs. mensualidad. Es el **costo total en 3 años**, incluyendo todos los factores.
+
+Tomemos un ejemplo concreto: una tienda online mediana con 500 productos y ~200 pedidos mensuales.
+
+> **Nota**: los rangos de abajo reflejan el mercado real, no un solo proveedor. Según la plataforma o agencia elegida, los valores pueden estar en el extremo inferior o superior del rango indicado.
+
+### Opción A: Plataforma SaaS e-commerce nivel avanzado (ej: Shopify, WooCommerce cloud, VTEX Go, Jumpseller)
+
+| Concepto | Año 1 | Año 2 | Año 3 |
+| --- | --- | --- | --- |
+| Suscripción de la plataforma | $1.800 - $4.800 USD | $1.800 - $4.800 USD | $1.800 - $4.800 USD |
+| Apps/plugins adicionales | $600 - $2.400 USD | $600 - $2.400 USD | $600 - $2.400 USD |
+| Customización inicial | $1.000 - $5.000 USD | - | - |
+| Comisiones por transacción (0,3%-2% según plan) | $720 - $4.800 USD | $720 - $4.800 USD | $720 - $4.800 USD |
+| **Total acumulado (rango)** | **$4.120 - $17.000 USD** | **$7.240 - $29.000 USD** | **$10.360 - $41.000 USD** |
+
+### Opción B: E-commerce a medida
+
+| Concepto | Año 1 | Año 2 | Año 3 |
+| --- | --- | --- | --- |
+| Desarrollo inicial | $10.000 - $30.000 USD | - | - |
+| Hosting + infraestructura | $600 - $2.400 USD | $600 - $2.400 USD | $600 - $2.400 USD |
+| Mantenimiento (15-20% del dev/año) | $1.500 - $6.000 USD | $1.500 - $6.000 USD | $1.500 - $6.000 USD |
+| Nuevas funcionalidades | $2.000 - $6.000 USD | $1.500 - $4.000 USD | $1.000 - $3.000 USD |
+| **Total acumulado (rango)** | **$14.100 - $44.400 USD** | **$18.700 - $56.800 USD** | **$22.800 - $68.200 USD** |
+
+> **Qué dice la comparación**: en el extremo inferior del rango (empresa pequeña, bajo volumen de transacciones), la plataforma SaaS casi siempre sale más barata en los primeros 3 años. En el extremo superior (alto volumen, muchas comisiones, muchos plugins), el software a medida puede empezar a ser competitivo desde el año 2.
+
+**¿Cuándo cambia este cálculo a favor del desarrollo propio?**
+- Cuando el volumen de pedidos supera los 1.500-2.000/mes y las comisiones por transacción se vuelven significativas.
+- Cuando el costo mensual de apps/plugins supera el 30% del costo de mantenimiento de un sistema propio.
+- Cuando la plataforma no puede implementar una funcionalidad crítica para el negocio sin un desarrollo tan costoso como hacerlo desde cero.
+- Cuando la plataforma aumenta sus precios o cambia sus condiciones (algo que ocurre con frecuencia en plataformas SaaS maduras).
+
+
 
 Usa estas preguntas para tomar la decisión:
 

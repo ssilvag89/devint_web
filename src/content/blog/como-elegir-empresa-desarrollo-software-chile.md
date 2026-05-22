@@ -17,11 +17,49 @@ seo:
   title: "Cómo Elegir una Empresa de Desarrollo de Software en Chile | Devint"
   description: "10 criterios para elegir bien tu proveedor de desarrollo de software en Chile. Preguntas clave, red flags y cómo protegerte en el contrato."
   keywords: "empresa desarrollo software Chile, como elegir proveedor TI Chile, contratar desarrolladores Chile, empresa tecnología Chile, seleccionar empresa software"
+faqs:
+  - question: "¿Cuánto tiempo debe tomar un proceso de selección de proveedor de software?"
+    answer: "Un proceso bien hecho toma entre 2 y 4 semanas: 1 semana para definir requisitos y enviar el brief, 1-2 semanas para que los proveedores preparen propuestas, y 1 semana para evaluar y tomar la decisión. Menos de esto suele indicar que no se está evaluando con suficiente profundidad."
+  - question: "¿Conviene contratar una empresa chilena o una extranjera para desarrollo de software?"
+    answer: "Para proyectos que requieren comunicación frecuente, integración con sistemas locales (SII, Transbank) o trabajo presencial, las empresas chilenas tienen ventajas claras: mismo huso horario, conocimiento del mercado local y facilidad de contacto. Para proyectos muy técnicos o con presupuesto ajustado, equipos de Latinoamérica (Colombia, Argentina, Uruguay) ofrecen buena relación costo-calidad con zonas horarias compatibles."
+  - question: "¿Cómo verifico que el código entregado por el proveedor es de calidad?"
+    answer: "Sin ser técnico, puedes verificar indirectamente: pide que el proveedor tenga repositorios en GitHub o GitLab, solicita que un tercero haga una auditoría de código básica (muchas empresas lo ofrecen por $500-$1.500 USD), y revisa que el software tenga tests automatizados. También es una señal positiva que el proveedor documente bien su código y pueda explicar sus decisiones técnicas en términos simples."
+  - question: "¿Debo pagar adelanto al contratar un proyecto de software?"
+    answer: "Sí, un adelanto es razonable y es práctica estándar. Lo recomendable es una estructura en hitos: 30-40% al inicio, 30-40% a la mitad del proyecto (con entregable verificable), y 20-30% al final. Nunca pagues más del 50% sin haber visto avance real. Desconfía de proveedores que piden el 100% por adelantado."
+  - question: "¿Qué pasa si el proveedor desaparece o quiebra durante el proyecto?"
+    answer: "Es un riesgo real. Para mitigarlo: recibe el código fuente en cada hito (no solo al final), usa un repositorio de código al que tengas acceso propio (GitHub/GitLab), documenta bien los requisitos del sistema, e incluye en el contrato que el código es tuyo desde el primer commit. Si el proveedor desaparece, con el código en tu poder otro equipo puede continuar, aunque habrá un costo de transferencia."
 ---
 
 Cada año, cientos de empresas chilenas contratan un proveedor de desarrollo de software y terminan frustrados: el proyecto se entregó tarde, el software no funciona como se prometió, o el proveedor desapareció a mitad del proyecto.
 
 No es que todos los proveedores sean malos. El problema es que la mayoría de las empresas no sabe cómo evaluarlos. Este artículo te da los criterios concretos para hacer una elección bien informada.
+
+## Lo que dicen los datos sobre proyectos de software
+
+Antes de entrar en los criterios, conviene entender la magnitud del problema con datos reales:
+
+| Indicador | Dato |
+| --- | --- |
+| Proyectos de software que fallan o se entregan con problemas graves | ~68% (Standish Group, 2023) |
+| Proyectos entregados tarde o sobre presupuesto | 55% a nivel global |
+| Porcentaje de proyectos que se cancelan antes de terminar | ~19% |
+| Sobrecosto promedio en proyectos de software | 45% sobre el presupuesto original |
+| Empresas que reportan insatisfacción con su proveedor de software | ~60% en Latinoamérica |
+
+Estos números no son para alarmarte, sino para entender que el riesgo es real y que **la selección del proveedor es la decisión más importante del proyecto**.
+
+> **Dato Chile**: el mercado de servicios TI en Chile crece entre un 8-12% anual y hay más de 1.400 empresas de desarrollo de software activas. La oferta es amplia, lo que hace la selección más compleja, no más fácil.
+
+### ¿Cuánto cuesta elegir mal?
+
+Elegir un proveedor equivocado tiene costos directos e indirectos que rara vez se calculan antes:
+
+- **Costo de rehacer el trabajo**: si el proyecto falla, recuperar lo avanzado y recomenzar con otro proveedor puede costar el 50-80% del presupuesto original adicional.
+- **Tiempo perdido**: un proyecto de 6 meses que falla implica entre 9 y 18 meses de retraso en contar con la solución.
+- **Costo de oportunidad**: durante ese tiempo, el negocio operó sin la herramienta que necesitaba.
+- **Costo de gestión**: el tiempo de tu equipo dedicado a gestionar un proyecto fallido es significativo.
+
+Un estudio de McKinsey estima que por cada $1 ahorrado al elegir la propuesta más barata sin due diligence adecuado, se gastan en promedio $5 en correcciones y retrasos.
 
 ## Por qué es difícil elegir bien
 

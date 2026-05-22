@@ -55,11 +55,11 @@ El desarrollo de software no funciona como comprar un mueble. No hay dos proyect
 
 Un sitio web profesional con diseño a medida, 5-10 páginas, optimización SEO básica y formulario de contacto.
 
-| Tipo                                        | USD              | CLP aprox.     |
-| ------------------------------------------- | ---------------- | -------------- |
-| Plantilla personalizada (WordPress/Webflow) | $300 - $5.000    | $290K - $4,8M  |
-| Diseño a medida con desarrollo front-end    | $3.000 - $15.000 | $2,9M - $14,4M |
-| Sitio con múltiples idiomas e integraciones | $8.000 - $30.000 | $7,7M - $28,8M |
+| Tipo                                                         | USD              | CLP aprox.     |
+| ------------------------------------------------------------ | ---------------- | -------------- |
+| Plantilla/tema premium (CMS como WordPress, Webflow, Wix...) | $300 - $5.000    | $290K - $4,8M  |
+| Diseño a medida con desarrollo front-end                     | $3.000 - $15.000 | $2,9M - $14,4M |
+| Sitio con múltiples idiomas e integraciones                  | $8.000 - $30.000 | $7,7M - $28,8M |
 
 **¿Por qué el rango de WordPress es tan amplio?** Un freelancer puede entregar un sitio funcional con plantilla premium por $300-$800 USD. Una agencia con proceso de diseño, SEO técnico, integraciones y garantía de soporte puede cobrar $3.000-$5.000 USD por el mismo tipo de sitio. Ambos son "WordPress", pero el respaldo y resultado son muy distintos.
 
@@ -67,11 +67,11 @@ Un sitio web profesional con diseño a medida, 5-10 páginas, optimización SEO 
 
 ### Tienda online (e-commerce)
 
-| Tipo                                   | USD                 | CLP aprox.     |
-| -------------------------------------- | ------------------- | -------------- |
-| Tienda básica en Shopify/WooCommerce   | $600 - $8.000       | $580K - $7,7M  |
-| E-commerce a medida (catálogo mediano) | $6.000 - $25.000    | $5,8M - $24M   |
-| Marketplace o e-commerce complejo      | $20.000 - $100.000+ | $19,2M - $96M+ |
+| Tipo                                                           | USD                 | CLP aprox.     |
+| -------------------------------------------------------------- | ------------------- | -------------- |
+| Tienda en plataforma SaaS (Shopify, WooCommerce, Jumpseller...) | $600 - $8.000       | $580K - $7,7M  |
+| E-commerce a medida (catálogo mediano)                         | $6.000 - $25.000    | $5,8M - $24M   |
+| Marketplace o e-commerce complejo                              | $20.000 - $100.000+ | $19,2M - $96M+ |
 
 **Factores que encarecen**: pasarelas de pago múltiples (Transbank, MercadoPago, PayPal), integración con ERP/bodega, catálogos de miles de productos, sistema de recomendaciones, multi-vendedor.
 

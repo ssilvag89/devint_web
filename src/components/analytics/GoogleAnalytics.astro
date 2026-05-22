@@ -244,4 +244,116 @@ const GA_MEASUREMENT_ID = "G-YLEKSPRT2V";
       });
     }
   });
+
+  // ── Captura y persistencia de parámetros UTM ─────────────────────────────
+  (function captureUTM() {
+    const params = new URLSearchParams(window.location.search);
+    const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+    const captured: Record<string, string> = {};
+    utmKeys.forEach((k) => {
+      const v = params.get(k);
+      if (v) captured[k] = v;
+    });
+    if (Object.keys(captured).length > 0) {
+      // Guardar en sessionStorage para uso en la sesión
+      sessionStorage.setItem("devint_utm", JSON.stringify(captured));
+      // Enviar a GA4 como parámetros de sesión
+      if (typeof window.gtag !== "undefined") {
+        window.gtag("event", "utm_captured", {
+          event_category: "acquisition",
+          ...captured,
+        });
+      }
+      // Push a dataLayer para GTM
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "utm_captured", ...captured });
+    }
+  })();
+
+  // ── Blog: tracking de artículos relacionados ─────────────────────────────
+  document.addEventListener("DOMContentLoaded", () => {
+    // Artículos relacionados
+    document.querySelectorAll("[data-track='related_article']").forEach((el) => {
+      el.addEventListener("click", () => {
+        const articleId = el.getAttribute("data-article-id") || "unknown";
+        if (typeof window.gtag !== "undefined") {
+          window.gtag("event", "related_article_click", {
+            event_category: "blog_engagement",
+            event_label: articleId,
+          });
+        }
+      });
+    });
+
+    // Botones de compartir (WhatsApp, LinkedIn)
+    document.querySelectorAll("a[href*='wa.me'], a[href*='whatsapp']").forEach((el) => {
+      el.addEventListener("click", () => {
+        if (typeof window.gtag !== "undefined") {
+          window.gtag("event", "share", {
+            method: "whatsapp",
+            content_type: "article",
+            item_id: window.location.pathname,
+          });
+        }
+      });
+    });
+    document.querySelectorAll("a[href*='linkedin.com/sharing']").forEach((el) => {
+      el.addEventListener("click", () => {
+        if (typeof window.gtag !== "undefined") {
+          window.gtag("event", "share", {
+            method: "linkedin",
+            content_type: "article",
+            item_id: window.location.pathname,
+          });
+        }
+      });
+    });
+
+    // Clicks en TOC (tabla de contenidos)
+    const toc = document.getElementById("toc");
+    if (toc) {
+      toc.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          if (typeof window.gtag !== "undefined") {
+            window.gtag("event", "toc_click", {
+              event_category: "blog_engagement",
+              event_label: a.textContent?.trim() || "toc_item",
+            });
+          }
+        });
+      });
+    }
+
+    // Lectura completa de artículo (cuando el progress bar llega a 100%)
+    const progressBar = document.getElementById("progress-bar");
+    if (progressBar) {
+      let articleReadFired = false;
+      const observer = new MutationObserver(() => {
+        const width = parseFloat(progressBar.style.width || "0");
+        if (width >= 95 && !articleReadFired) {
+          articleReadFired = true;
+          if (typeof window.gtag !== "undefined") {
+            window.gtag("event", "article_read_complete", {
+              event_category: "blog_engagement",
+              event_label: window.location.pathname,
+            });
+          }
+        }
+      });
+      observer.observe(progressBar, { attributes: true, attributeFilter: ["style"] });
+    }
+
+    // Push de metadatos del artículo al dataLayer (para GTM)
+    const articleContent = document.getElementById("article-content");
+    if (articleContent) {
+      const titleEl = document.querySelector("h1");
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "article_view",
+        article_title: titleEl?.textContent?.trim() || document.title,
+        article_path: window.location.pathname,
+        article_id: window.location.pathname.split("/blog/")[1]?.replace(/\?.*$/, "") || "",
+      });
+    }
+  });
 </script>

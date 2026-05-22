@@ -18,11 +18,45 @@ seo:
   title: "Transformación Digital 2025: Cómo Priorizar Iniciativas con Impacto | Devint"
   description: "Guía práctica para empresas chilenas que quieren iniciar o acelerar su transformación digital con resultados medibles en menos de 90 días."
   keywords: "transformacion digital Chile, roadmap digital empresas, digitalización PYME, proyectos TI Chile, consultoría tecnológica"
+faqs:
+  - question: "¿Cuánto cuesta un proyecto de transformación digital para una empresa mediana en Chile?"
+    answer: "Depende mucho del alcance. Un proyecto de digitalización de un proceso específico (ej: automatización de cotizaciones o gestión de pedidos) puede costar $3M-$15M CLP. Una transformación digital más amplia que involucra múltiples procesos, sistemas y capacitación puede ir desde $20M hasta $150M CLP o más. El criterio no debe ser el costo sino el ROI esperado: si automatizar cotizaciones te ahorra 20 horas/semana de tu equipo, el payback puede ser en 3-6 meses."
+  - question: "¿Cuánto tiempo tarda en verse resultados en una transformación digital?"
+    answer: "Con la metodología correcta (foco en una palanca, entregables en 90 días), los primeros resultados se ven en 2-3 meses. Una transformación completa que involucra varios procesos toma 12-24 meses. La clave es no esperar la 'gran transformación' para medir resultados: cada módulo debe tener KPIs propios y entregas parciales verificables."
+  - question: "¿Por dónde empezar si mi empresa nunca ha hecho un proyecto digital?"
+    answer: "Empieza por el diagnóstico: mapea los 5 procesos que más tiempo consumen o más errores generan. Luego elige el más impactante y abordable. No comiences con el más ambicioso, empieza con el que puedas implementar en menos de 90 días para generar aprendizaje y confianza interna. Un CRM básico, un sistema de agendamiento online o la automatización de cotizaciones suelen ser buenos primeros proyectos."
+  - question: "¿Qué es un MVP y por qué es importante en la transformación digital?"
+    answer: "Un MVP (Minimum Viable Product) es la versión mínima funcional de una solución digital que permite validar si resuelve el problema. En transformación digital, trabajar con MVPs permite lanzar en semanas (no meses), obtener retroalimentación real de usuarios antes de invertir más, y corregir el rumbo con bajo costo. Es lo opuesto a diseñar el sistema perfecto durante meses antes de probarlo."
+  - question: "¿La transformación digital aplica solo para grandes empresas o también para PYME?"
+    answer: "Aplica especialmente para PYME. Las grandes empresas ya tienen presupuestos y equipos dedicados; las PYME son las que más pueden mejorar su competitividad con digitalización incremental. La clave es no copiar el enfoque corporativo (grandes transformaciones con consultoras caras) sino aplicar una lógica de mejora continua: un proceso a la vez, con herramientas adecuadas al tamaño y presupuesto."
 ---
 
 El 73% de las empresas en Chile reconoce que necesita transformarse digitalmente. Pero menos del 30% logra resultados concretos en el primer año. La brecha no está en la tecnología —la brecha está en **cómo se prioriza y ejecuta**.
 
 Después de trabajar con empresas de retail, logística, salud y servicios en Chile, en Devint identificamos tres principios que separan las transformaciones digitales exitosas de las que terminan siendo proyectos costosos sin retorno.
+
+## El estado de la transformación digital: lo que dicen los datos
+
+Para entender el problema, primero conviene mirar el panorama completo. La brecha entre intención y resultado en transformación digital es uno de los fenómenos más documentados en gestión empresarial:
+
+| Indicador | Dato |
+| --- | --- |
+| Empresas que dicen necesitar transformación digital | 73% (Chile, IDC 2024) |
+| Empresas que logran resultados concretos en el primer año | < 30% |
+| Proyectos de transformación digital que fracasan globalmente | ~70% (McKinsey, 2023) |
+| Razón #1 del fracaso | Falta de alineación entre tecnología y objetivos de negocio |
+| Razón #2 del fracaso | Subestimación del cambio cultural necesario |
+| ROI promedio de proyectos exitosos de transformación digital | 200-400% en 3 años |
+
+Dicho de otra forma: cuando se hace bien, la transformación digital tiene un retorno enorme. El problema es que la mayoría de los intentos no llegan a ese punto.
+
+### ¿Qué diferencia a las empresas que sí logran resultados?
+
+Un estudio de McKinsey (2023) con más de 2.000 empresas identificó tres características comunes en las transformaciones exitosas:
+
+1. **Foco en procesos específicos**, no en "transformar la empresa" como concepto abstracto.
+2. **Entregables en ciclos de 90 días** que permiten medir y corregir antes de escalar.
+3. **Patrocinador ejecutivo activo** que conecta el proyecto con los objetivos del negocio.
 
 ## Por qué fracasan la mayoría de los proyectos de transformación digital
 

@@ -305,7 +305,7 @@ const breadcrumbSchema = {
               </p>
               <div class="flex flex-wrap gap-3">
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(data.title + " → " + canonical)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(data.title + " → " + canonical + "?utm_source=whatsapp&utm_medium=social&utm_campaign=article_share&utm_content=" + post.id)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-500"
@@ -320,7 +320,7 @@ const breadcrumbSchema = {
                   WhatsApp
                 </a>
                 <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`}
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical + "?utm_source=linkedin&utm_medium=social&utm_campaign=article_share&utm_content=" + post.id)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center gap-2 rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-600"
@@ -425,7 +425,9 @@ const breadcrumbSchema = {
               <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {relatedPosts.map((related) => (
                   <a
-                    href={`/blog/${related.id}`}
+                    href={`/blog/${related.id}?utm_source=internal&utm_medium=related_articles&utm_campaign=blog_engagement&utm_content=${related.id}`}
+                    data-track="related_article"
+                    data-article-id={related.id}
                     class="group overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 transition-colors hover:border-emerald-400/50"
                   >
                     <img
