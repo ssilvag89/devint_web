@@ -22,9 +22,9 @@ faqs:
   - question: "¿Cuánto cobra un programador freelance en Chile?"
     answer: "Un programador freelance en Chile cobra entre $15 y $50 USD/hora (aprox. $14.400 a $48.000 CLP/hora) según experiencia y especialidad. El promedio del mercado chileno está en torno a $20-$30 USD/hora (~$19.200-$28.800 CLP/hora)."
   - question: "¿Cuánto cuesta desarrollar una app móvil en Chile?"
-    answer: "Una app móvil simple (3-5 pantallas, solo lectura) en Chile puede costar entre $5.000 y $20.000 USD (~$4,8M a $19,2M CLP). Una app funcional con login y transacciones cuesta entre $12.000 y $50.000 USD (~$11,5M-$48M CLP). Apps complejas con pagos y geolocalización en tiempo real pueden superar los $35.000 USD (~$33,6M CLP). Los rangos son amplios porque el costo depende mucho de quién lo desarrolla y qué nivel de calidad se requiere."
+    answer: "Una app móvil simple (3-5 pantallas, solo lectura) en Chile puede costar entre $2.500 y $15.000 USD (~$2,4M a $14,4M CLP). Una app funcional con login y transacciones cuesta entre $6.000 y $35.000 USD (~$5,8M-$33,6M CLP). Apps complejas con pagos y geolocalización en tiempo real pueden superar los $20.000 USD (~$19,2M CLP). Los rangos son amplios porque el costo depende mucho de quién lo desarrolla (freelancer vs agencia) y qué nivel de calidad se requiere."
   - question: "¿Cuánto cuesta un sitio web profesional en Chile?"
-    answer: "Un sitio web con plantilla personalizada (WordPress/Webflow) en Chile puede costar desde $300 hasta $5.000 USD (~$290K a $4,8M CLP), dependiendo de quién lo hace. Con diseño a medida, el rango sube a $3.000-$15.000 USD (~$2,9M-$14,4M CLP). Sitios con múltiples idiomas o integraciones complejas llegan a $8.000-$30.000 USD (~$7,7M-$28,8M CLP)."
+    answer: "Un sitio web con plantilla personalizada (WordPress/Webflow) en Chile puede costar desde $150 hasta $3.500 USD (~$144K a $3,4M CLP), dependiendo de quién lo hace. Con diseño a medida, el rango sube a $1.200-$12.000 USD (~$1,2M-$11,5M CLP). Sitios con múltiples idiomas o integraciones complejas llegan a $5.000-$22.000 USD (~$4,8M-$21,1M CLP)."
   - question: "¿Es más barato contratar una agencia o un freelancer?"
     answer: "Para proyectos pequeños y bien definidos, un freelancer suele ser más económico. Para proyectos medianos o grandes, una agencia ofrece más confiabilidad: hay equipo detrás, no dependes de una persona, y tienen procesos de calidad. El riesgo con freelancers es la disponibilidad y continuidad si el proyecto se extiende."
   - question: "¿Cuánto tiempo tarda en desarrollarse una aplicación web?"
@@ -57,11 +57,11 @@ Un sitio web profesional con diseño a medida, 5-10 páginas, optimización SEO 
 
 | Tipo                                                         | USD              | CLP aprox.     |
 | ------------------------------------------------------------ | ---------------- | -------------- |
-| Plantilla/tema premium (CMS como WordPress, Webflow, Wix...) | $300 - $5.000    | $290K - $4,8M  |
-| Diseño a medida con desarrollo front-end                     | $3.000 - $15.000 | $2,9M - $14,4M |
-| Sitio con múltiples idiomas e integraciones                  | $8.000 - $30.000 | $7,7M - $28,8M |
+| Plantilla/tema premium (CMS como WordPress, Webflow, Wix...) | $150 - $3.500    | $144K - $3,4M  |
+| Diseño a medida con desarrollo front-end                     | $1.200 - $12.000 | $1,2M - $11,5M |
+| Sitio con múltiples idiomas e integraciones                  | $5.000 - $22.000 | $4,8M - $21,1M |
 
-**¿Por qué el rango de WordPress es tan amplio?** Un freelancer puede entregar un sitio funcional con plantilla premium por $300-$800 USD. Una agencia con proceso de diseño, SEO técnico, integraciones y garantía de soporte puede cobrar $3.000-$5.000 USD por el mismo tipo de sitio. Ambos son "WordPress", pero el respaldo y resultado son muy distintos.
+**¿Por qué el rango de WordPress es tan amplio?** Un freelancer puede entregar un sitio funcional con plantilla premium por $150-$400 USD. Una agencia con proceso de diseño, SEO técnico, integraciones y garantía de soporte puede cobrar $2.000-$3.500 USD por el mismo tipo de sitio. Ambos son "WordPress", pero el respaldo y resultado son muy distintos.
 
 **Qué incluye el precio más alto**: diseño UX/UI original, animaciones, integración con CRM, chatbot, blog, optimización de performance y soporte post-lanzamiento.
 
@@ -69,9 +69,9 @@ Un sitio web profesional con diseño a medida, 5-10 páginas, optimización SEO 
 
 | Tipo                                                            | USD                 | CLP aprox.     |
 | --------------------------------------------------------------- | ------------------- | -------------- |
-| Tienda en plataforma SaaS (Shopify, WooCommerce, Jumpseller...) | $600 - $8.000       | $580K - $7,7M  |
-| E-commerce a medida (catálogo mediano)                          | $6.000 - $25.000    | $5,8M - $24M   |
-| Marketplace o e-commerce complejo                               | $20.000 - $100.000+ | $19,2M - $96M+ |
+| Tienda en plataforma SaaS (Shopify, WooCommerce, Jumpseller...) | $200 - $5.000       | $192K - $4,8M  |
+| E-commerce a medida (catálogo mediano)                          | $3.500 - $20.000    | $3,4M - $19,2M |
+| Marketplace o e-commerce complejo                               | $15.000 - $100.000+ | $14,4M - $96M+ |
 
 **Factores que encarecen**: pasarelas de pago múltiples (Transbank, MercadoPago, PayPal), integración con ERP/bodega, catálogos de miles de productos, sistema de recomendaciones, multi-vendedor.
 
@@ -81,32 +81,32 @@ Este es el tipo de proyecto más variable, porque puede ir desde una agenda onli
 
 | Tipo                                | USD                 | CLP aprox.      |
 | ----------------------------------- | ------------------- | --------------- |
-| Sistema simple (1-2 módulos)        | $3.000 - $18.000    | $2,9M - $17,3M  |
-| Sistema mediano (3-6 módulos)       | $12.000 - $50.000   | $11,5M - $48M   |
-| Sistema complejo (ERP, 10+ módulos) | $40.000 - $200.000+ | $38,4M - $192M+ |
+| Sistema simple (1-2 módulos)        | $1.500 - $12.000    | $1,4M - $11,5M  |
+| Sistema mediano (3-6 módulos)       | $8.000 - $40.000    | $7,7M - $38,4M  |
+| Sistema complejo (ERP, 10+ módulos) | $30.000 - $180.000+ | $28,8M - $173M+ |
 
 **Ejemplos orientativos**:
 
-- Sistema de cotizaciones y seguimiento de proyectos: $8.000-$20.000 USD (~$7,7M-$19,2M CLP)
-- Plataforma de gestión de turnos para clínica: $15.000-$40.000 USD (~$14,4M-$38,4M CLP)
-- Sistema de control de inventario y despacho: $20.000-$60.000 USD (~$19,2M-$57,6M CLP)
+- Sistema de cotizaciones y seguimiento de proyectos: $5.000-$15.000 USD (~$4,8M-$14,4M CLP)
+- Plataforma de gestión de turnos para clínica: $10.000-$30.000 USD (~$9,6M-$28,8M CLP)
+- Sistema de control de inventario y despacho: $12.000-$45.000 USD (~$11,5M-$43,2M CLP)
 
 ### Aplicación móvil
 
-| Tipo                                                 | USD                 | CLP aprox.      |
-| ---------------------------------------------------- | ------------------- | --------------- |
-| App simple (solo lectura de datos, 3-5 pantallas)    | $5.000 - $20.000    | $4,8M - $19,2M  |
-| App funcional con login, perfil y transacciones      | $12.000 - $50.000   | $11,5M - $48M   |
-| App compleja con geolocalización, pagos, tiempo real | $35.000 - $150.000+ | $33,6M - $144M+ |
+| Tipo                                                 | USD                 | CLP aprox.     |
+| ---------------------------------------------------- | ------------------- | -------------- |
+| App simple (solo lectura de datos, 3-5 pantallas)    | $2.500 - $15.000    | $2,4M - $14,4M |
+| App funcional con login, perfil y transacciones      | $6.000 - $35.000    | $5,8M - $33,6M |
+| App compleja con geolocalización, pagos, tiempo real | $20.000 - $100.000+ | $19,2M - $96M+ |
 
 **Importante**: el precio incluye solo el desarrollo, no el mantenimiento anual ni las comisiones de las tiendas (Apple cobra 15-30% de las ventas; Google 15-30%).
 
 ### Landing page o micrositio de campaña
 
-| Tipo                                                | USD             | CLP aprox.    |
-| --------------------------------------------------- | --------------- | ------------- |
-| Landing básica (1 página)                           | $200 - $3.000   | $192K - $2,9M |
-| Landing con animaciones, formulario e integraciones | $1.500 - $8.000 | $1,4M - $7,7M |
+| Tipo                                                | USD           | CLP aprox.    |
+| --------------------------------------------------- | ------------- | ------------- |
+| Landing básica (1 página)                           | $80 - $1.500  | $76K - $1,4M  |
+| Landing con animaciones, formulario e integraciones | $600 - $5.000 | $580K - $4,8M |
 
 ## ¿Qué es lo que más encarece un proyecto?
 

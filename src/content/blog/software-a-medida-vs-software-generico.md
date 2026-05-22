@@ -52,7 +52,7 @@ Antes de entrar en los criterios, veamos las diferencias clave entre ambos enfoq
 
 | Dimensión                    | Software a medida           | Plataforma / SaaS                            |
 | ---------------------------- | --------------------------- | -------------------------------------------- |
-| **Costo inicial**            | Alto ($5.000 - $100.000+)   | Bajo ($0 - $5.000)                           |
+| **Costo inicial**            | Alto ($1.500 - $100.000+)   | Bajo ($0 - $5.000)                           |
 | **Costo mensual**            | Bajo (solo hosting)         | Medio-alto ($50 - $2.000/mes)                |
 | **Tiempo de implementación** | 1-6 meses                   | Días o semanas                               |
 | **Adaptación a tu proceso**  | Total                       | Parcial (debes adaptarte tú)                 |
@@ -148,13 +148,13 @@ Tomemos un ejemplo concreto: una tienda online mediana con 500 productos y ~200 
 
 ### Opción B: E-commerce a medida
 
-| Concepto                           | Año 1                     | Año 2                     | Año 3                     |
-| ---------------------------------- | ------------------------- | ------------------------- | ------------------------- |
-| Desarrollo inicial                 | $10.000 - $30.000 USD     | -                         | -                         |
-| Hosting + infraestructura          | $600 - $2.400 USD         | $600 - $2.400 USD         | $600 - $2.400 USD         |
-| Mantenimiento (15-20% del dev/año) | $1.500 - $6.000 USD       | $1.500 - $6.000 USD       | $1.500 - $6.000 USD       |
-| Nuevas funcionalidades             | $2.000 - $6.000 USD       | $1.500 - $4.000 USD       | $1.000 - $3.000 USD       |
-| **Total acumulado (rango)**        | **$14.100 - $44.400 USD** | **$18.700 - $56.800 USD** | **$22.800 - $68.200 USD** |
+| Concepto                           | Año 1                    | Año 2                    | Año 3                     |
+| ---------------------------------- | ------------------------ | ------------------------ | ------------------------- |
+| Desarrollo inicial                 | $4.000 - $30.000 USD     | -                        | -                         |
+| Hosting + infraestructura          | $600 - $2.400 USD        | $600 - $2.400 USD        | $600 - $2.400 USD         |
+| Mantenimiento (15-20% del dev/año) | $600 - $6.000 USD        | $600 - $6.000 USD        | $600 - $6.000 USD         |
+| Nuevas funcionalidades             | $2.000 - $6.000 USD      | $1.500 - $4.000 USD      | $1.000 - $3.000 USD       |
+| **Total acumulado (rango)**        | **$7.200 - $44.400 USD** | **$9.900 - $56.800 USD** | **$12.100 - $68.200 USD** |
 
 > **Qué dice la comparación**: en el extremo inferior del rango (empresa pequeña, bajo volumen de transacciones), la plataforma SaaS casi siempre sale más barata en los primeros 3 años. En el extremo superior (alto volumen, muchas comisiones, muchos plugins), el software a medida puede empezar a ser competitivo desde el año 2.
 

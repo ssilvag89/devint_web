@@ -20,7 +20,7 @@ seo:
   keywords: "digitalizar PYME Chile, digitalización pequeña empresa Chile, automatización procesos PYME, transformación digital PYME, herramientas digitales empresas Chile"
 faqs:
   - question: "¿Cuánto cuesta digitalizar una PYME en Chile desde cero?"
-    answer: "Una digitalización básica (correo corporativo, facturación electrónica, CRM básico y automatización de respuestas) puede costar entre $50.000 y $200.000 CLP al mes en suscripciones. Una digitalización más completa con sistemas a medida puede requerir una inversión inicial de $3M a $20M CLP, más $200K-$500K CLP mensuales en operación. CORFO tiene subsidios de hasta el 80% para proyectos de digitalización en PYME."
+    answer: "Una digitalización básica (correo corporativo, facturación electrónica, CRM básico y automatización de respuestas) puede costar entre $50.000 y $200.000 CLP al mes en suscripciones. Una digitalización más completa con sistemas a medida puede requerir una inversión inicial de $1,5M a $20M CLP, más $200K-$500K CLP mensuales en operación. CORFO tiene subsidios de hasta el 80% para proyectos de digitalización en PYME."
   - question: "¿Cuánto tiempo tarda en verse el retorno de la inversión en digitalización?"
     answer: "Para herramientas básicas (CRM, automatización de respuestas) el ROI se ve en 3-6 meses. Para proyectos más complejos, el período de recuperación típico es 12-24 meses. Las PYME que digitalizan sus procesos de venta reportan incrementos de 20-40% en conversión de prospectos en el primer año."
   - question: "¿Qué herramienta conviene implementar primero en una PYME?"
