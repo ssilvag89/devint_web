@@ -5,57 +5,86 @@ export interface Props {
   title: string;
   description?: string;
   image?: string;
+  canonical?: string;
+  type?: "website" | "article";
+  keywords?: string;
+  author?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 const {
   title,
   description = "Desarrollo de software a medida en Chile | Creamos aplicaciones web, móviles y sistemas empresariales personalizados. Transformación digital, automatización de procesos y soluciones tecnológicas para PYMES y empresas.",
   image = "/images/og-devint.jpg",
+  canonical,
+  type = "website",
+  keywords,
+  author,
+  publishedTime,
+  modifiedTime,
 } = Astro.props;
+
+const siteUrl = "https://devint.cl";
+const canonicalUrl = canonical || Astro.url.href;
+const imageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 ---
 
 <!doctype html>
 <html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO Keywords -->
-    <meta
-      name="keywords"
-      content="desarrollo de software a medida, desarrollo de aplicaciones, software personalizado, empresa de software Chile, desarrollo web, aplicaciones móviles, sistemas empresariales, automatización de procesos, transformación digital, desarrollo apps, programación a medida, software para empresas, desarrollo de sistemas, aplicaciones web, crear software, desarrollo de plataformas, soluciones tecnológicas, desarrollo de software Santiago, PYMES, ERP, CRM"
-    />
-    <meta name="author" content="Devint" />
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    {author && <meta name="author" content={author} />}
     <meta
       name="robots"
-      content="index, follow, max-snippet:-1, max-image-preview:large"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
     />
     <meta name="language" content="es" />
     <meta name="geo.region" content="CL" />
     <meta name="geo.placename" content="Santiago, Chile" />
 
-    <!-- SEO Meta Tags -->
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:site_name" content="Devint" />
+    <meta property="og:locale" content="es_CL" />
+    {
+      publishedTime && (
+        <meta property="article:published_time" content={publishedTime} />
+      )
+    }
+    {
+      modifiedTime && (
+        <meta property="article:modified_time" content={modifiedTime} />
+      )
+    }
+    {author && <meta property="article:author" content={author} />}
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:url" content={canonicalUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={image} />
+    <meta property="twitter:image" content={imageUrl} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Slot para JSON-LD y head adicional por página -->
+    <slot name="head" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -19,7 +19,7 @@ const services = defineCollection({
           step: z.number(),
           title: z.string(),
           description: z.string(),
-        })
+        }),
       )
       .optional(),
     pricing: z
@@ -62,6 +62,14 @@ const blog = defineCollection({
         keywords: z.string().optional(),
       })
       .optional(),
+    faqs: z
+      .array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        }),
+      )
+      .optional(),
   }),
 });
 
@@ -75,7 +83,7 @@ const faqs = defineCollection({
       z.object({
         question: z.string(),
         answer: z.string(),
-      })
+      }),
     ),
     publishDate: z.date(),
     updatedDate: z.date().optional(),

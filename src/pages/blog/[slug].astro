@@ -2,77 +2,547 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/common/Header.astro";
 import Footer from "../../components/common/Footer.astro";
-import { getEntryBySlug } from "astro:content";
+import JsonLd from "../../components/seo/JsonLd.astro";
+import { getCollection, getEntry, render } from "astro:content";
 import { formatDate, formatRelativeTime } from "../../utils/format";
 
 const { slug } = Astro.params;
-const post = await getEntryBySlug("blog", slug ?? "");
+const post = await getEntry("blog", slug ?? "");
 
 if (!post) {
-  throw Astro.redirect("/blog", 302);
+  return Astro.redirect("/blog", 302);
 }
 
-const { Content, remarkPluginFrontmatter } = await post.render();
+const { Content } = await render(post);
 const { data } = post;
 
+const canonical = `https://devint.cl/blog/${post.id}`;
 const seoTitle = data.seo?.title ?? `${data.title} | Blog Devint`;
 const seoDescription = data.seo?.description ?? data.excerpt;
-const canonical = `https://devint.cl/blog/${post.slug}`;
+
+// Artículos relacionados (misma categoría o etiquetas comunes)
+const allPosts = await getCollection("blog");
+const relatedPosts = allPosts
+  .filter(
+    (p) =>
+      p.id !== post.id &&
+      (p.data.category === data.category ||
+        p.data.tags.some((t: string) => data.tags.includes(t))),
+  )
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+// JSON-LD: BlogPosting schema (para que Google muestre rich results)
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: data.title,
+  description: data.description,
+  image: `https://devint.cl${data.image}`,
+  datePublished: data.publishDate.toISOString(),
+  dateModified: (data.updatedDate ?? data.publishDate).toISOString(),
+  author: {
+    "@type": "Organization",
+    name: "Devint",
+    url: "https://devint.cl",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Devint",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://devint.cl/images/devint-icon.png",
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonical,
+  },
+  keywords: data.seo?.keywords ?? data.tags.join(", "),
+  inLanguage: "es-CL",
+  isAccessibleForFree: true,
+};
+
+// JSON-LD: FAQPage schema (si el artículo tiene FAQs — aparece en "Preguntas frecuentes" de Google)
+const faqSchema =
+  data.faqs && data.faqs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: data.faqs.map(
+          (faq: { question: string; answer: string }) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer,
+            },
+          }),
+        ),
+      }
+    : null;
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Inicio",
+      item: "https://devint.cl",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: "https://devint.cl/blog",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: data.title,
+      item: canonical,
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title={seoTitle}
   description={seoDescription}
   image={data.image}
-  seo={{
-    canonical,
-    type: "article",
-    keywords: data.seo?.keywords,
-    author: data.author,
-    publishedTime: data.publishDate.toISOString(),
-    modifiedTime: (data.updatedDate ?? data.publishDate).toISOString(),
-  }}
+  canonical={canonical}
+  type="article"
+  keywords={data.seo?.keywords}
+  author={data.author}
+  publishedTime={data.publishDate.toISOString()}
+  modifiedTime={(data.updatedDate ?? data.publishDate).toISOString()}
 >
+  <!-- JSON-LD schemas en el <head> -->
+  <Fragment slot="head">
+    <JsonLd schema={articleSchema} />
+    <JsonLd schema={breadcrumbSchema} />
+    {faqSchema && <JsonLd schema={faqSchema} />}
+  </Fragment>
+
   <Header />
+
+  <!-- Barra de progreso de lectura -->
+  <div
+    id="progress-bar"
+    class="fixed left-0 top-0 z-50 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400 transition-all duration-75"
+    style="width: 0%"
+    aria-hidden="true"
+  >
+  </div>
 
   <main class="pt-24">
     <article class="pb-20">
-      <div class="container mx-auto px-6 max-w-4xl">
-        <header class="mb-10">
-          <a href="/blog" class="inline-flex items-center gap-2 text-sm text-emerald-300 hover:text-emerald-200">
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            Volver al blog
-          </a>
-          <p class="mt-6 text-xs uppercase tracking-[0.3em] text-emerald-300">{data.category}</p>
-          <h1 class="mt-3 text-4xl font-bold text-white lg:text-5xl">{data.title}</h1>
-          <p class="mt-4 text-lg text-slate-300">{data.description}</p>
-          <div class="mt-6 flex flex-wrap gap-4 text-sm text-slate-400">
-            <span>{formatDate(data.publishDate)}</span>
-            {data.updatedDate && (
-              <span>Actualizado {formatRelativeTime(data.updatedDate)}</span>
-            )}
-            {data.readingTime && <span>{data.readingTime} min de lectura</span>}
+      <div class="container mx-auto max-w-6xl px-6">
+        <!-- Breadcrumbs visuales -->
+        <nav
+          class="flex items-center gap-2 pb-8 pt-2 text-sm text-slate-400"
+          aria-label="Navegación"
+        >
+          <a href="/" class="hover:text-emerald-300 transition-colors">Inicio</a
+          >
+          <svg
+            class="h-3 w-3 text-slate-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path></svg
+          >
+          <a href="/blog" class="hover:text-emerald-300 transition-colors"
+            >Blog</a
+          >
+          <svg
+            class="h-3 w-3 text-slate-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path></svg
+          >
+          <span class="max-w-xs truncate text-slate-500">{data.title}</span>
+        </nav>
+
+        <!-- Layout principal: contenido + sidebar -->
+        <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-14">
+          <!-- Contenido del artículo -->
+          <div>
+            <header class="mb-10">
+              <span
+                class="mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-emerald-300"
+              >
+                {data.category}
+              </span>
+              <h1
+                class="mt-3 text-4xl font-bold leading-tight text-white lg:text-5xl"
+              >
+                {data.title}
+              </h1>
+              <p class="mt-4 text-lg text-slate-300">{data.description}</p>
+              <div
+                class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-400"
+              >
+                <span class="flex items-center gap-1.5">
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path></svg
+                  >
+                  {formatDate(data.publishDate)}
+                </span>
+                {
+                  data.updatedDate && (
+                    <span class="flex items-center gap-1.5">
+                      <svg
+                        class="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
+                      </svg>
+                      Actualizado {formatRelativeTime(data.updatedDate)}
+                    </span>
+                  )
+                }
+                {
+                  data.readingTime && (
+                    <span class="flex items-center gap-1.5">
+                      <svg
+                        class="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      {data.readingTime} min de lectura
+                    </span>
+                  )
+                }
+                <span class="flex items-center gap-1.5">
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    ></path></svg
+                  >
+                  {data.author}
+                </span>
+              </div>
+            </header>
+
+            <img
+              src={data.image}
+              alt={data.title}
+              class="mb-10 h-72 w-full rounded-3xl object-cover"
+              loading="eager"
+              width="800"
+              height="288"
+            />
+
+            <!-- Contenido del artículo -->
+            <div
+              id="article-content"
+              class="prose prose-invert max-w-none prose-headings:scroll-mt-28 prose-headings:text-white prose-a:text-emerald-300 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-table:text-sm prose-th:text-emerald-300 prose-blockquote:border-emerald-400 prose-blockquote:text-slate-300 prose-code:text-emerald-300 prose-code:bg-slate-800 prose-code:rounded prose-code:px-1"
+            >
+              <Content />
+            </div>
+
+            <!-- Tags -->
+            {
+              data.tags.length > 0 && (
+                <div class="mt-12 flex flex-wrap gap-2">
+                  {(data.tags as string[]).map((tag) => (
+                    <span class="rounded-full border border-slate-700 bg-slate-800/80 px-3 py-1 text-xs text-slate-300">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )
+            }
+
+            <!-- Compartir -->
+            <div
+              class="mt-10 rounded-2xl border border-slate-700 bg-slate-800/50 p-6"
+            >
+              <p class="mb-4 text-sm font-semibold text-white">
+                ¿Te fue útil? Comparte este artículo:
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(data.title + " → " + canonical)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-500"
+                >
+                  <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"
+                    ><path
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                    ></path><path
+                      d="M12 2C6.477 2 2 6.477 2 12c0 1.876.502 3.634 1.376 5.144L2 22l4.956-1.365A9.952 9.952 0 0012 22c5.523 0 10-4.477 10-10S17.522 2 12 2zm0 18a7.955 7.955 0 01-4.124-1.146l-.295-.176-3.063.844.868-3.149-.193-.313A8 8 0 1120 12a7.97 7.97 0 01-8 8z"
+                    ></path></svg
+                  >
+                  WhatsApp
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-600"
+                >
+                  <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"
+                    ><path
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    ></path></svg
+                  >
+                  LinkedIn
+                </a>
+                <button
+                  id="copy-link-btn"
+                  class="flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-700 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-600"
+                >
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    ></path></svg
+                  >
+                  Copiar enlace
+                </button>
+              </div>
+            </div>
+
+            <!-- CTA principal al pie del artículo -->
+            <div
+              class="mt-12 rounded-3xl border border-emerald-400/30 bg-gradient-to-br from-emerald-500/15 to-cyan-500/10 p-8 text-center"
+            >
+              <p
+                class="mb-2 text-xs font-semibold uppercase tracking-widest text-emerald-300"
+              >
+                ¿Listo para dar el siguiente paso?
+              </p>
+              <h3 class="mb-3 text-2xl font-bold text-white">
+                Cuéntanos tu proyecto
+              </h3>
+              <p class="mx-auto mb-6 max-w-lg text-slate-300">
+                Hacemos estimaciones gratuitas y sin compromiso. Te respondemos
+                en menos de 48 horas hábiles con un rango de precio realista.
+              </p>
+              <a
+                href="/contacto"
+                class="inline-block rounded-xl bg-emerald-500 px-8 py-3 font-semibold text-slate-900 transition-colors hover:bg-emerald-400"
+              >
+                Cotizar gratis →
+              </a>
+            </div>
           </div>
-        </header>
 
-        <img src={data.image} alt={data.title} class="mb-10 h-72 w-full rounded-3xl object-cover" loading="lazy" />
+          <!-- Sidebar: tabla de contenidos + CTA pequeño -->
+          <aside class="hidden lg:block">
+            <div class="sticky top-28 space-y-6">
+              <!-- Tabla de contenidos (se genera con JS) -->
+              <div
+                id="toc-container"
+                class="rounded-2xl border border-slate-700 bg-slate-800/50 p-5"
+              >
+                <p
+                  class="mb-3 text-xs font-semibold uppercase tracking-widest text-emerald-300"
+                >
+                  En este artículo
+                </p>
+                <nav id="toc" class="space-y-0.5 text-sm"></nav>
+              </div>
 
-        <div class="prose prose-invert prose-headings:text-white prose-a:text-emerald-300 prose-strong:text-white max-w-none">
-          <Content />
+              <!-- Mini CTA sidebar -->
+              <div
+                class="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-5 text-center"
+              >
+                <p class="mb-1 text-sm font-semibold text-white">
+                  ¿Tienes un proyecto?
+                </p>
+                <p class="mb-4 text-xs text-slate-400">
+                  Estimación gratis en 48h.
+                </p>
+                <a
+                  href="/contacto"
+                  class="block rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-emerald-400"
+                >
+                  Cotizar →
+                </a>
+              </div>
+            </div>
+          </aside>
         </div>
 
-        {data.tags.length > 0 && (
-          <footer class="mt-12 flex flex-wrap gap-3">
-            {data.tags.map((tag) => (
-              <span class="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-xs text-slate-300">#{tag}</span>
-            ))}
-          </footer>
-        )}
+        <!-- Artículos relacionados -->
+        {
+          relatedPosts.length > 0 && (
+            <section class="mt-20 border-t border-slate-700 pt-16">
+              <h2 class="mb-8 text-2xl font-bold text-white">
+                Artículos relacionados
+              </h2>
+              <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {relatedPosts.map((related) => (
+                  <a
+                    href={`/blog/${related.id}`}
+                    class="group overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 transition-colors hover:border-emerald-400/50"
+                  >
+                    <img
+                      src={related.data.image}
+                      alt={related.data.title}
+                      class="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div class="p-5">
+                      <p class="mb-1 text-xs font-medium text-emerald-300">
+                        {related.data.category}
+                      </p>
+                      <h3 class="line-clamp-2 font-semibold text-white transition-colors group-hover:text-emerald-300">
+                        {related.data.title}
+                      </h3>
+                      <p class="mt-2 text-xs text-slate-400">
+                        {formatDate(related.data.publishDate)}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
       </div>
     </article>
   </main>
 
   <Footer />
 </BaseLayout>
+
+<script>
+  // ── Barra de progreso de lectura ──────────────────────────────────────────
+  const progressBar = document.getElementById(
+    "progress-bar",
+  ) as HTMLElement | null;
+  if (progressBar) {
+    const updateProgress = () => {
+      const content = document.getElementById("article-content");
+      if (!content) return;
+      const contentBottom =
+        content.getBoundingClientRect().bottom + window.scrollY;
+      const contentTop = content.getBoundingClientRect().top + window.scrollY;
+      const scrolled = window.scrollY - contentTop + window.innerHeight * 0.5;
+      const total = contentBottom - contentTop;
+      const pct = Math.min(100, Math.max(0, (scrolled / total) * 100));
+      progressBar.style.width = `${pct}%`;
+    };
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  // ── Tabla de contenidos auto-generada ────────────────────────────────────
+  const tocEl = document.getElementById("toc");
+  const tocContainer = document.getElementById("toc-container");
+  if (tocEl && tocContainer) {
+    const content = document.getElementById("article-content");
+    const headings = content?.querySelectorAll("h2, h3") ?? [];
+    if (headings.length < 3) {
+      tocContainer.remove();
+    } else {
+      headings.forEach((h, i) => {
+        if (!h.id) h.id = `s${i}`;
+        const a = document.createElement("a");
+        a.href = `#${h.id}`;
+        a.textContent = h.textContent ?? "";
+        a.className =
+          h.tagName === "H2"
+            ? "block py-1.5 text-slate-300 hover:text-emerald-300 transition-colors text-sm border-l-2 border-transparent hover:border-emerald-400 pl-3"
+            : "block py-1 text-slate-500 hover:text-emerald-300 transition-colors text-xs pl-6";
+        tocEl.appendChild(a);
+      });
+
+      // Resaltar sección activa al hacer scroll
+      const links = tocEl.querySelectorAll("a");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              links.forEach((l) => {
+                l.classList.remove(
+                  "text-emerald-300",
+                  "border-emerald-400",
+                  "!border-emerald-400",
+                );
+                l.classList.add("text-slate-300", "border-transparent");
+              });
+              const active = tocEl.querySelector(
+                `a[href="#${entry.target.id}"]`,
+              );
+              if (active) {
+                active.classList.add("text-emerald-300", "!border-emerald-400");
+                active.classList.remove("text-slate-300", "border-transparent");
+              }
+            }
+          });
+        },
+        { rootMargin: "-80px 0px -60% 0px" },
+      );
+      headings.forEach((h) => observer.observe(h));
+    }
+  }
+
+  // ── Botón copiar enlace ───────────────────────────────────────────────────
+  const copyBtn = document.getElementById("copy-link-btn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const original = copyBtn.innerHTML;
+        copyBtn.textContent = "¡Enlace copiado!";
+        copyBtn.classList.add("bg-emerald-700", "border-emerald-600");
+        setTimeout(() => {
+          copyBtn.innerHTML = original;
+          copyBtn.classList.remove("bg-emerald-700", "border-emerald-600");
+        }, 2500);
+      });
+    });
+  }
+</script>
