@@ -430,30 +430,30 @@ const breadcrumbSchema = {
                 {relatedPosts.map((related) => {
                   const relatedSlug = related.id.replace(/\.md$/, "");
                   return (
-                  <a
-                    href={`/blog/${relatedSlug}?utm_source=internal&utm_medium=related_articles&utm_campaign=blog_engagement&utm_content=${relatedSlug}`}
-                    data-track="related_article"
-                    data-article-id={relatedSlug}
-                    class="group overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 transition-colors hover:border-emerald-400/50"
-                  >
-                    <img
-                      src={related.data.image}
-                      alt={related.data.title}
-                      class="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div class="p-5">
-                      <p class="mb-1 text-xs font-medium text-emerald-300">
-                        {related.data.category}
-                      </p>
-                      <h3 class="line-clamp-2 font-semibold text-white transition-colors group-hover:text-emerald-300">
-                        {related.data.title}
-                      </h3>
-                      <p class="mt-2 text-xs text-slate-400">
-                        {formatDate(related.data.publishDate)}
-                      </p>
-                    </div>
-                  </a>
+                    <a
+                      href={`/blog/${relatedSlug}?utm_source=internal&utm_medium=related_articles&utm_campaign=blog_engagement&utm_content=${relatedSlug}`}
+                      data-track="related_article"
+                      data-article-id={relatedSlug}
+                      class="group overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 transition-colors hover:border-emerald-400/50"
+                    >
+                      <img
+                        src={related.data.image}
+                        alt={related.data.title}
+                        class="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div class="p-5">
+                        <p class="mb-1 text-xs font-medium text-emerald-300">
+                          {related.data.category}
+                        </p>
+                        <h3 class="line-clamp-2 font-semibold text-white transition-colors group-hover:text-emerald-300">
+                          {related.data.title}
+                        </h3>
+                        <p class="mt-2 text-xs text-slate-400">
+                          {formatDate(related.data.publishDate)}
+                        </p>
+                      </div>
+                    </a>
                   );
                 })}
               </div>
