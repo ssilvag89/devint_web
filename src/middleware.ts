@@ -6,8 +6,8 @@ import type { APIRoute, MiddlewareNext } from "astro";
 const SITE_URL = import.meta.env.PROD
   ? "https://devint.cl"
   : import.meta.env.DEV
-  ? "http://localhost:4321"
-  : "http://127.0.0.1:4321";
+    ? "http://localhost:4321"
+    : "http://127.0.0.1:4321";
 const CSP_POLICY = `
   default-src 'self';
   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://formspree.io;
@@ -45,14 +45,14 @@ export async function onRequest(context: any, next: MiddlewareNext) {
     headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     headers.set(
       "Permissions-Policy",
-      "camera=(), microphone=(), geolocation=(), payment=()"
+      "camera=(), microphone=(), geolocation=(), payment=()",
     );
 
     // HSTS for HTTPS
     if (url.protocol === "https:") {
       headers.set(
         "Strict-Transport-Security",
-        "max-age=31536000; includeSubDomains; preload"
+        "max-age=31536000; includeSubDomains; preload",
       );
     }
   }
@@ -167,14 +167,17 @@ function addCanonicalLink(html: string, canonicalUrl: string): string {
 }
 
 // Utility function to clean up rate limit map periodically
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, record] of rateLimitMap.entries()) {
-    if (now > record.resetTime) {
-      rateLimitMap.delete(ip);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [ip, record] of rateLimitMap.entries()) {
+      if (now > record.resetTime) {
+        rateLimitMap.delete(ip);
+      }
     }
-  }
-}, 5 * 60 * 1000); // Clean up every 5 minutes
+  },
+  5 * 60 * 1000,
+); // Clean up every 5 minutes
 
 // Export types for use in other files
 export interface MiddlewareLocals {

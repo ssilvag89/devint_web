@@ -39,14 +39,14 @@ Esta guía es diferente. No está escrita para venderte nada. Está escrita para
 
 Las pequeñas y medianas empresas son la columna vertebral de la economía chilena. Pero en términos de adopción digital, todavía hay una brecha importante:
 
-| Indicador | Dato |
-| --- | --- |
-| PYME en Chile como % del total de empresas | 98,5% (SII, 2024) |
-| Empleo generado por PYME | ~63% del empleo privado |
-| PYME con presencia digital activa (sitio web + redes) | ~45% |
-| PYME que usa algún software de gestión | ~38% |
-| PYME que automatiza al menos 1 proceso crítico | ~22% |
-| Brecha de productividad PYME vs gran empresa en Chile | 3,5x (OCDE) |
+| Indicador                                             | Dato                    |
+| ----------------------------------------------------- | ----------------------- |
+| PYME en Chile como % del total de empresas            | 98,5% (SII, 2024)       |
+| Empleo generado por PYME                              | ~63% del empleo privado |
+| PYME con presencia digital activa (sitio web + redes) | ~45%                    |
+| PYME que usa algún software de gestión                | ~38%                    |
+| PYME que automatiza al menos 1 proceso crítico        | ~22%                    |
+| Brecha de productividad PYME vs gran empresa en Chile | 3,5x (OCDE)             |
 
 Esta brecha de productividad está directamente relacionada con la adopción tecnológica. Las empresas que digitalizan sus procesos clave tienen, en promedio, un crecimiento de ventas 2-3 veces mayor que las que no lo hacen.
 
@@ -231,17 +231,17 @@ La mejor herramienta del mundo no sirve si el equipo no la usa. Incluye tiempo d
 
 Para que tengas una referencia rápida, este es el stack digital recomendado para una PYME chilena según su etapa:
 
-| Herramienta | Función | Costo mensual USD | CLP aprox. | Fase |
-| --- | --- | --- | --- | --- |
-| Google Workspace | Email + colaboración | $6 - $18/usuario | $5.800 - $17.300 | 1 |
-| Bsale / Defontana | Facturación electrónica | $15 - $50 fijo | $14.400 - $48.000 | 1 |
-| WhatsApp Business | Atención al cliente | Gratis - $30 | $0 - $28.800 | 1 |
-| HubSpot Free | CRM básico | Gratis | $0 | 2 |
-| Pipedrive / Zoho | CRM avanzado | $15 - $25/usuario | $14.400 - $24.000 | 2 |
-| Mailchimp / Brevo | Email marketing | $0 - $50 | $0 - $48.000 | 2 |
-| Calendly | Agendamiento online | $0 - $20 | $0 - $19.200 | 2 |
-| Zapier / Make | Automatización | $0 - $100 | $0 - $96.000 | 3 |
-| Looker Studio | Dashboard negocio | Gratis | $0 | 3 |
+| Herramienta       | Función                 | Costo mensual USD | CLP aprox.        | Fase |
+| ----------------- | ----------------------- | ----------------- | ----------------- | ---- |
+| Google Workspace  | Email + colaboración    | $6 - $18/usuario  | $5.800 - $17.300  | 1    |
+| Bsale / Defontana | Facturación electrónica | $15 - $50 fijo    | $14.400 - $48.000 | 1    |
+| WhatsApp Business | Atención al cliente     | Gratis - $30      | $0 - $28.800      | 1    |
+| HubSpot Free      | CRM básico              | Gratis            | $0                | 2    |
+| Pipedrive / Zoho  | CRM avanzado            | $15 - $25/usuario | $14.400 - $24.000 | 2    |
+| Mailchimp / Brevo | Email marketing         | $0 - $50          | $0 - $48.000      | 2    |
+| Calendly          | Agendamiento online     | $0 - $20          | $0 - $19.200      | 2    |
+| Zapier / Make     | Automatización          | $0 - $100         | $0 - $96.000      | 3    |
+| Looker Studio     | Dashboard negocio       | Gratis            | $0                | 3    |
 
 > **Subsidio disponible**: muchas de estas herramientas son elegibles para el subsidio de digitalización de SERCOTEC y CORFO. Consulta con un agente acreditado antes de comprar.
 

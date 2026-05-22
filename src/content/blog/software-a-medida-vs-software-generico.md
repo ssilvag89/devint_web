@@ -138,33 +138,32 @@ Tomemos un ejemplo concreto: una tienda online mediana con 500 productos y ~200 
 
 ### Opción A: Plataforma SaaS e-commerce nivel avanzado (ej: Shopify, WooCommerce cloud, VTEX Go, Jumpseller)
 
-| Concepto | Año 1 | Año 2 | Año 3 |
-| --- | --- | --- | --- |
-| Suscripción de la plataforma | $1.800 - $4.800 USD | $1.800 - $4.800 USD | $1.800 - $4.800 USD |
-| Apps/plugins adicionales | $600 - $2.400 USD | $600 - $2.400 USD | $600 - $2.400 USD |
-| Customización inicial | $1.000 - $5.000 USD | - | - |
-| Comisiones por transacción (0,3%-2% según plan) | $720 - $4.800 USD | $720 - $4.800 USD | $720 - $4.800 USD |
-| **Total acumulado (rango)** | **$4.120 - $17.000 USD** | **$7.240 - $29.000 USD** | **$10.360 - $41.000 USD** |
+| Concepto                                        | Año 1                    | Año 2                    | Año 3                     |
+| ----------------------------------------------- | ------------------------ | ------------------------ | ------------------------- |
+| Suscripción de la plataforma                    | $1.800 - $4.800 USD      | $1.800 - $4.800 USD      | $1.800 - $4.800 USD       |
+| Apps/plugins adicionales                        | $600 - $2.400 USD        | $600 - $2.400 USD        | $600 - $2.400 USD         |
+| Customización inicial                           | $1.000 - $5.000 USD      | -                        | -                         |
+| Comisiones por transacción (0,3%-2% según plan) | $720 - $4.800 USD        | $720 - $4.800 USD        | $720 - $4.800 USD         |
+| **Total acumulado (rango)**                     | **$4.120 - $17.000 USD** | **$7.240 - $29.000 USD** | **$10.360 - $41.000 USD** |
 
 ### Opción B: E-commerce a medida
 
-| Concepto | Año 1 | Año 2 | Año 3 |
-| --- | --- | --- | --- |
-| Desarrollo inicial | $10.000 - $30.000 USD | - | - |
-| Hosting + infraestructura | $600 - $2.400 USD | $600 - $2.400 USD | $600 - $2.400 USD |
-| Mantenimiento (15-20% del dev/año) | $1.500 - $6.000 USD | $1.500 - $6.000 USD | $1.500 - $6.000 USD |
-| Nuevas funcionalidades | $2.000 - $6.000 USD | $1.500 - $4.000 USD | $1.000 - $3.000 USD |
-| **Total acumulado (rango)** | **$14.100 - $44.400 USD** | **$18.700 - $56.800 USD** | **$22.800 - $68.200 USD** |
+| Concepto                           | Año 1                     | Año 2                     | Año 3                     |
+| ---------------------------------- | ------------------------- | ------------------------- | ------------------------- |
+| Desarrollo inicial                 | $10.000 - $30.000 USD     | -                         | -                         |
+| Hosting + infraestructura          | $600 - $2.400 USD         | $600 - $2.400 USD         | $600 - $2.400 USD         |
+| Mantenimiento (15-20% del dev/año) | $1.500 - $6.000 USD       | $1.500 - $6.000 USD       | $1.500 - $6.000 USD       |
+| Nuevas funcionalidades             | $2.000 - $6.000 USD       | $1.500 - $4.000 USD       | $1.000 - $3.000 USD       |
+| **Total acumulado (rango)**        | **$14.100 - $44.400 USD** | **$18.700 - $56.800 USD** | **$22.800 - $68.200 USD** |
 
 > **Qué dice la comparación**: en el extremo inferior del rango (empresa pequeña, bajo volumen de transacciones), la plataforma SaaS casi siempre sale más barata en los primeros 3 años. En el extremo superior (alto volumen, muchas comisiones, muchos plugins), el software a medida puede empezar a ser competitivo desde el año 2.
 
 **¿Cuándo cambia este cálculo a favor del desarrollo propio?**
+
 - Cuando el volumen de pedidos supera los 1.500-2.000/mes y las comisiones por transacción se vuelven significativas.
 - Cuando el costo mensual de apps/plugins supera el 30% del costo de mantenimiento de un sistema propio.
 - Cuando la plataforma no puede implementar una funcionalidad crítica para el negocio sin un desarrollo tan costoso como hacerlo desde cero.
 - Cuando la plataforma aumenta sus precios o cambia sus condiciones (algo que ocurre con frecuencia en plataformas SaaS maduras).
-
-
 
 Usa estas preguntas para tomar la decisión:
 

@@ -38,13 +38,13 @@ No es que todos los proveedores sean malos. El problema es que la mayoría de la
 
 Antes de entrar en los criterios, conviene entender la magnitud del problema con datos reales:
 
-| Indicador | Dato |
-| --- | --- |
-| Proyectos de software que fallan o se entregan con problemas graves | ~68% (Standish Group, 2023) |
-| Proyectos entregados tarde o sobre presupuesto | 55% a nivel global |
-| Porcentaje de proyectos que se cancelan antes de terminar | ~19% |
-| Sobrecosto promedio en proyectos de software | 45% sobre el presupuesto original |
-| Empresas que reportan insatisfacción con su proveedor de software | ~60% en Latinoamérica |
+| Indicador                                                           | Dato                              |
+| ------------------------------------------------------------------- | --------------------------------- |
+| Proyectos de software que fallan o se entregan con problemas graves | ~68% (Standish Group, 2023)       |
+| Proyectos entregados tarde o sobre presupuesto                      | 55% a nivel global                |
+| Porcentaje de proyectos que se cancelan antes de terminar           | ~19%                              |
+| Sobrecosto promedio en proyectos de software                        | 45% sobre el presupuesto original |
+| Empresas que reportan insatisfacción con su proveedor de software   | ~60% en Latinoamérica             |
 
 Estos números no son para alarmarte, sino para entender que el riesgo es real y que **la selección del proveedor es la decisión más importante del proyecto**.
 

@@ -39,14 +39,14 @@ Después de trabajar con empresas de retail, logística, salud y servicios en Ch
 
 Para entender el problema, primero conviene mirar el panorama completo. La brecha entre intención y resultado en transformación digital es uno de los fenómenos más documentados en gestión empresarial:
 
-| Indicador | Dato |
-| --- | --- |
-| Empresas que dicen necesitar transformación digital | 73% (Chile, IDC 2024) |
-| Empresas que logran resultados concretos en el primer año | < 30% |
-| Proyectos de transformación digital que fracasan globalmente | ~70% (McKinsey, 2023) |
-| Razón #1 del fracaso | Falta de alineación entre tecnología y objetivos de negocio |
-| Razón #2 del fracaso | Subestimación del cambio cultural necesario |
-| ROI promedio de proyectos exitosos de transformación digital | 200-400% en 3 años |
+| Indicador                                                    | Dato                                                        |
+| ------------------------------------------------------------ | ----------------------------------------------------------- |
+| Empresas que dicen necesitar transformación digital          | 73% (Chile, IDC 2024)                                       |
+| Empresas que logran resultados concretos en el primer año    | < 30%                                                       |
+| Proyectos de transformación digital que fracasan globalmente | ~70% (McKinsey, 2023)                                       |
+| Razón #1 del fracaso                                         | Falta de alineación entre tecnología y objetivos de negocio |
+| Razón #2 del fracaso                                         | Subestimación del cambio cultural necesario                 |
+| ROI promedio de proyectos exitosos de transformación digital | 200-400% en 3 años                                          |
 
 Dicho de otra forma: cuando se hace bien, la transformación digital tiene un retorno enorme. El problema es que la mayoría de los intentos no llegan a ese punto.
 

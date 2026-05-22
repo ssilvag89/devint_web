@@ -38,12 +38,12 @@ En Devint hemos implementado sistemas de observabilidad en proyectos de todos lo
 
 Antes de hablar de herramientas y configuraciones, conviene hablar de dinero. El downtime y los problemas de rendimiento tienen costos directos e indirectos que rara vez se calculan de antemano:
 
-| Tipo de empresa | Costo promedio por hora de downtime |
-| --- | --- |
-| E-commerce pequeño ($500K CLP/mes en ventas) | ~$70.000 CLP/hora perdida |
-| SaaS B2B mediano | $2M - $10M CLP/hora (pérdida de contratos) |
-| Plataforma transaccional (pagos, fintech) | $10M - $100M CLP/hora |
-| Gran empresa retail (ventas online) | $50M - $500M CLP/hora |
+| Tipo de empresa                              | Costo promedio por hora de downtime        |
+| -------------------------------------------- | ------------------------------------------ |
+| E-commerce pequeño ($500K CLP/mes en ventas) | ~$70.000 CLP/hora perdida                  |
+| SaaS B2B mediano                             | $2M - $10M CLP/hora (pérdida de contratos) |
+| Plataforma transaccional (pagos, fintech)    | $10M - $100M CLP/hora                      |
+| Gran empresa retail (ventas online)          | $50M - $500M CLP/hora                      |
 
 Fuente: estimaciones basadas en benchmarks de Gartner y casos de clientes.
 
@@ -185,29 +185,32 @@ En Devint hemos hecho esto para empresas de retail, fintech y logística en Chil
 
 Una pregunta frecuente es qué stack elegir. La respuesta depende del equipo, el presupuesto y la escala. Aquí una comparación práctica:
 
-| Herramienta | Función principal | Precio aprox. | Mejor para |
-| --- | --- | --- | --- |
-| **Sentry** | Rastreo de errores frontend/backend | Free / desde $26 USD/mes | Cualquier equipo, muy fácil de instalar |
-| **Datadog** | Observabilidad full-stack (APM, logs, métricas) | Desde $15 USD/host/mes (escala rápido) | Equipos grandes con presupuesto |
-| **Grafana Cloud** | Dashboards + Prometheus + Loki | Free tier generoso / desde $0 | Equipos técnicos que prefieren open source |
-| **Prometheus + Grafana** (auto-hospedado) | Métricas + dashboards | Solo hosting (~$20-50 USD/mes) | Equipos con capacidad DevOps propia |
-| **New Relic** | APM + infraestructura + logs | Free (100 GB/mes) / desde $49 USD/mes | Proyectos medianos con equipo técnico |
-| **Better Stack (ex Logtail)** | Logs + uptime monitoring | Free / desde $24 USD/mes | Startups que quieren logs legibles |
-| **UptimeRobot** | Monitoreo de disponibilidad | Free (50 monitores) / $7 USD/mes | Proyecto de cualquier tamaño |
+| Herramienta                               | Función principal                               | Precio aprox.                          | Mejor para                                 |
+| ----------------------------------------- | ----------------------------------------------- | -------------------------------------- | ------------------------------------------ |
+| **Sentry**                                | Rastreo de errores frontend/backend             | Free / desde $26 USD/mes               | Cualquier equipo, muy fácil de instalar    |
+| **Datadog**                               | Observabilidad full-stack (APM, logs, métricas) | Desde $15 USD/host/mes (escala rápido) | Equipos grandes con presupuesto            |
+| **Grafana Cloud**                         | Dashboards + Prometheus + Loki                  | Free tier generoso / desde $0          | Equipos técnicos que prefieren open source |
+| **Prometheus + Grafana** (auto-hospedado) | Métricas + dashboards                           | Solo hosting (~$20-50 USD/mes)         | Equipos con capacidad DevOps propia        |
+| **New Relic**                             | APM + infraestructura + logs                    | Free (100 GB/mes) / desde $49 USD/mes  | Proyectos medianos con equipo técnico      |
+| **Better Stack (ex Logtail)**             | Logs + uptime monitoring                        | Free / desde $24 USD/mes               | Startups que quieren logs legibles         |
+| **UptimeRobot**                           | Monitoreo de disponibilidad                     | Free (50 monitores) / $7 USD/mes       | Proyecto de cualquier tamaño               |
 
 ### Stack recomendado por etapa
 
 **Startup / proyecto inicial** (presupuesto ~$0-$50 USD/mes):
+
 - Sentry Free → errores en tiempo real
 - UptimeRobot Free → alertas si el sitio cae
 - Google Cloud Monitoring o Grafana Cloud Free → métricas básicas
 
 **Producto en crecimiento** (presupuesto ~$100-$300 USD/mes):
+
 - Sentry Team → errores con contexto completo
 - Better Stack → logs centralizados y legibles
 - Grafana Cloud → dashboards y alertas por métrica
 
 **Empresa mediana / alto volumen** (presupuesto $500+ USD/mes):
+
 - Datadog o New Relic → observabilidad integrada completa
 - PagerDuty o Opsgenie → gestión de incidentes con rotación de guardia
 - Jaeger o Zipkin → trazas distribuidas entre microservicios

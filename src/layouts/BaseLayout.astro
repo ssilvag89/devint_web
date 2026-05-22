@@ -104,16 +104,18 @@ const imageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
     class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white font-['Inter'] relative"
   >
     <!-- Google Tag Manager (noscript fallback) -->
-    {import.meta.env.PUBLIC_GTM_ID && (
-      <noscript>
-        <iframe
-          src={`https://www.googletagmanager.com/ns.html?id=${import.meta.env.PUBLIC_GTM_ID}`}
-          height="0"
-          width="0"
-          style="display:none;visibility:hidden"
-        ></iframe>
-      </noscript>
-    )}
+    {
+      import.meta.env.PUBLIC_GTM_ID && (
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${import.meta.env.PUBLIC_GTM_ID}`}
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+          />
+        </noscript>
+      )
+    }
     <!-- Background Pattern -->
     <div class="fixed inset-0 opacity-5 pointer-events-none">
       <div

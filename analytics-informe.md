@@ -6,29 +6,31 @@
 
 ## ✅ Estado actual (post-configuración)
 
-| Canal | Estado | Detalle |
-|-------|--------|---------|
-| Google Analytics 4 | ✅ Activo | ID: `G-YLEKSPRT2V` |
-| Google Tag Manager | ⏳ Listo para activar | Requiere añadir `PUBLIC_GTM_ID` en `.env` |
-| Google Search Console | ✅ Verificado | Archivo `/public/googlea9b879b187c4789c.html` |
-| UTM en share buttons | ✅ Configurado | WhatsApp + LinkedIn |
-| UTM en artículos relacionados | ✅ Configurado | `utm_source=internal` |
-| Sitemap | ✅ Activo | `/sitemap-index.xml` (vía Astro) |
+| Canal                         | Estado                | Detalle                                       |
+| ----------------------------- | --------------------- | --------------------------------------------- |
+| Google Analytics 4            | ✅ Activo             | ID: `G-YLEKSPRT2V`                            |
+| Google Tag Manager            | ⏳ Listo para activar | Requiere añadir `PUBLIC_GTM_ID` en `.env`     |
+| Google Search Console         | ✅ Verificado         | Archivo `/public/googlea9b879b187c4789c.html` |
+| UTM en share buttons          | ✅ Configurado        | WhatsApp + LinkedIn                           |
+| UTM en artículos relacionados | ✅ Configurado        | `utm_source=internal`                         |
+| Sitemap                       | ✅ Activo             | `/sitemap-index.xml` (vía Astro)              |
 
 ---
 
 ## 1. Google Analytics 4 (GA4)
 
 ### Configuración
+
 - **Measurement ID**: `G-YLEKSPRT2V`
 - **Archivo**: `src/components/analytics/GoogleAnalytics.astro`
 - **Carga**: Incluido en `src/layouts/BaseLayout.astro` → se carga en **todas las páginas**
 
 ### Configuración gtag
+
 ```js
 gtag("config", "G-YLEKSPRT2V", {
   send_page_view: true,
-  anonymize_ip: true,       // Cumplimiento GDPR
+  anonymize_ip: true, // Cumplimiento GDPR
   allow_google_signals: true,
   allow_ad_personalization_signals: false,
 });
@@ -36,25 +38,25 @@ gtag("config", "G-YLEKSPRT2V", {
 
 ### Eventos configurados
 
-| Evento | Categoría | Trigger | Páginas |
-|--------|-----------|---------|---------|
-| `cta_click` | engagement | Click en `a[href="/contacto"]`, botones CTA | Todas |
-| `navigation_click` | navigation | Click en `nav a`, `header a` | Todas |
-| `click` (outbound) | outbound | Click en links externos | Todas |
-| `scroll` | engagement | Al llegar a 25%, 50%, 75%, 100% del scroll | Todas |
-| `form_submit` | engagement | Submit de cualquier formulario | Contacto |
-| `file_download` | engagement | Click en `.pdf`, `.zip`, `.doc` | Todas |
-| `timing_complete` | engagement | Al salir de la página (tiempo total) | Todas |
-| `page_visibility` | engagement | Al cambiar de pestaña | Todas |
-| `service_view` | engagement | Click en tarjetas de servicios | Servicios |
-| `exception` | — | Errores JS no capturados | Todas |
-| `utm_captured` | acquisition | Al detectar UTMs en URL | Todas |
-| `article_view` | blog_engagement | Al cargar artículo del blog | Blog |
-| `article_read_complete` | blog_engagement | Al leer el 95% del artículo | Blog |
-| `related_article_click` | blog_engagement | Click en artículo relacionado | Blog |
-| `share` (whatsapp) | — | Click en botón WhatsApp | Blog |
-| `share` (linkedin) | — | Click en botón LinkedIn | Blog |
-| `toc_click` | blog_engagement | Click en tabla de contenidos | Blog |
+| Evento                  | Categoría       | Trigger                                     | Páginas   |
+| ----------------------- | --------------- | ------------------------------------------- | --------- |
+| `cta_click`             | engagement      | Click en `a[href="/contacto"]`, botones CTA | Todas     |
+| `navigation_click`      | navigation      | Click en `nav a`, `header a`                | Todas     |
+| `click` (outbound)      | outbound        | Click en links externos                     | Todas     |
+| `scroll`                | engagement      | Al llegar a 25%, 50%, 75%, 100% del scroll  | Todas     |
+| `form_submit`           | engagement      | Submit de cualquier formulario              | Contacto  |
+| `file_download`         | engagement      | Click en `.pdf`, `.zip`, `.doc`             | Todas     |
+| `timing_complete`       | engagement      | Al salir de la página (tiempo total)        | Todas     |
+| `page_visibility`       | engagement      | Al cambiar de pestaña                       | Todas     |
+| `service_view`          | engagement      | Click en tarjetas de servicios              | Servicios |
+| `exception`             | —               | Errores JS no capturados                    | Todas     |
+| `utm_captured`          | acquisition     | Al detectar UTMs en URL                     | Todas     |
+| `article_view`          | blog_engagement | Al cargar artículo del blog                 | Blog      |
+| `article_read_complete` | blog_engagement | Al leer el 95% del artículo                 | Blog      |
+| `related_article_click` | blog_engagement | Click en artículo relacionado               | Blog      |
+| `share` (whatsapp)      | —               | Click en botón WhatsApp                     | Blog      |
+| `share` (linkedin)      | —               | Click en botón LinkedIn                     | Blog      |
+| `toc_click`             | blog_engagement | Click en tabla de contenidos                | Blog      |
 
 ---
 
@@ -73,6 +75,7 @@ GTM está implementado pero desactivado hasta que se proporcione un Container ID
 **Paso 3**: Copiar el Container ID (formato: `GTM-XXXXXXX`)
 
 **Paso 4**: Agregar al archivo `.env` en la raíz del proyecto:
+
 ```env
 PUBLIC_GTM_ID=GTM-XXXXXXX
 ```
@@ -82,6 +85,7 @@ PUBLIC_GTM_ID=GTM-XXXXXXX
 ### ¿Por qué usar GTM además de GA4 directo?
 
 Con GTM puedes:
+
 - Agregar/modificar tags **sin tocar código** (solo desde la UI de GTM)
 - Instalar píxeles de Meta Ads, LinkedIn Ads, etc.
 - Crear triggers personalizados (clicks en botones específicos, formularios, etc.)
@@ -91,6 +95,7 @@ Con GTM puedes:
 ### Configuración recomendada en GTM
 
 Una vez activado, configurar en GTM:
+
 1. **Tag GA4**: Configuration Tag apuntando a `G-YLEKSPRT2V`
 2. **Trigger All Pages**: Para disparar GA4 en toda navegación
 3. **Tag LinkedIn Insight** (si se hace campañas en LinkedIn)
@@ -121,14 +126,14 @@ Una vez activado, configurar en GTM:
 
 ### Artículos del blog a verificar en Search Console
 
-| Artículo | URL | Estado esperado |
-|----------|-----|----------------|
-| ¿Cuánto cuesta desarrollar software en Chile? | `/blog/cuanto-cuesta-desarrollar-software-chile` | Indexado |
-| Cómo elegir empresa de desarrollo | `/blog/como-elegir-empresa-desarrollo-software-chile` | Indexado |
-| Cómo digitalizar tu PYME | `/blog/como-digitalizar-tu-pyme-chile` | Indexado |
-| Software a medida vs. genérico | `/blog/software-a-medida-vs-software-generico` | Indexado |
-| Transformación digital 2025 | `/blog/transformacion-digital-2025` | Indexado |
-| Observabilidad para productos digitales | `/blog/observabilidad-para-productos` | Indexado |
+| Artículo                                      | URL                                                   | Estado esperado |
+| --------------------------------------------- | ----------------------------------------------------- | --------------- |
+| ¿Cuánto cuesta desarrollar software en Chile? | `/blog/cuanto-cuesta-desarrollar-software-chile`      | Indexado        |
+| Cómo elegir empresa de desarrollo             | `/blog/como-elegir-empresa-desarrollo-software-chile` | Indexado        |
+| Cómo digitalizar tu PYME                      | `/blog/como-digitalizar-tu-pyme-chile`                | Indexado        |
+| Software a medida vs. genérico                | `/blog/software-a-medida-vs-software-generico`        | Indexado        |
+| Transformación digital 2025                   | `/blog/transformacion-digital-2025`                   | Indexado        |
+| Observabilidad para productos digitales       | `/blog/observabilidad-para-productos`                 | Indexado        |
 
 ---
 
@@ -138,12 +143,12 @@ Los parámetros UTM permiten identificar el origen exacto del tráfico en GA4.
 
 ### Schema de UTMs configurado
 
-| Canal | `utm_source` | `utm_medium` | `utm_campaign` | `utm_content` |
-|-------|-------------|--------------|----------------|---------------|
-| Compartir por WhatsApp | `whatsapp` | `social` | `article_share` | `{id-del-articulo}` |
-| Compartir por LinkedIn | `linkedin` | `social` | `article_share` | `{id-del-articulo}` |
-| Artículos relacionados | `internal` | `related_articles` | `blog_engagement` | `{id-del-articulo}` |
-| CTA en artículo | `blog` | `cta` | `article_cta` | `{id-del-articulo}` |
+| Canal                  | `utm_source` | `utm_medium`       | `utm_campaign`    | `utm_content`       |
+| ---------------------- | ------------ | ------------------ | ----------------- | ------------------- |
+| Compartir por WhatsApp | `whatsapp`   | `social`           | `article_share`   | `{id-del-articulo}` |
+| Compartir por LinkedIn | `linkedin`   | `social`           | `article_share`   | `{id-del-articulo}` |
+| Artículos relacionados | `internal`   | `related_articles` | `blog_engagement` | `{id-del-articulo}` |
+| CTA en artículo        | `blog`       | `cta`              | `article_cta`     | `{id-del-articulo}` |
 
 ### Cómo ver UTMs en GA4
 
@@ -154,6 +159,7 @@ Los parámetros UTM permiten identificar el origen exacto del tráfico en GA4.
 ### UTM Builder para campañas externas
 
 Para crear links rastreados para campañas de email, redes sociales o ads:
+
 - Usar: [ga-dev-tools.google.com/campaign-url-builder](https://ga-dev-tools.google.com/campaign-url-builder/)
 - **Dominio base**: `https://devint.cl`
 - **Convención**: snake_case, en minúsculas, sin espacios
@@ -169,18 +175,19 @@ window.dataLayer.push({
   event: "article_view",
   article_title: "Título del artículo",
   article_path: "/blog/slug-del-articulo",
-  article_id: "slug-del-articulo"
+  article_id: "slug-del-articulo",
 });
 ```
 
 Cuando se detectan UTMs en la URL:
+
 ```js
 window.dataLayer.push({
   event: "utm_captured",
   utm_source: "...",
   utm_medium: "...",
   utm_campaign: "...",
-  utm_content: "..."  // si presente
+  utm_content: "...", // si presente
 });
 ```
 
@@ -190,11 +197,11 @@ Estos eventos pueden usarse como triggers en GTM para disparar tags específicos
 
 ## 6. Bugs corregidos en esta sesión
 
-| Bug | Causa raíz | Fix aplicado |
-|-----|------------|-------------|
-| Artículos relacionados redirigen a `/blog` | `blog.astro` usaba `p.slug` (API v4 eliminada en Astro v5) en vez de `p.id` | Reemplazado `slug` → `id` en `blog.astro` |
-| Botones compartir no tenían tracking de origen | URLs de sharing sin parámetros UTM | Añadidos UTM a WhatsApp y LinkedIn en `[slug].astro` |
-| SITE_URL apuntaba a proyecto incorrecto | `middleware.ts` tenía URL de Render de otro proyecto | Corregido a `https://devint.cl` |
+| Bug                                            | Causa raíz                                                                  | Fix aplicado                                         |
+| ---------------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Artículos relacionados redirigen a `/blog`     | `blog.astro` usaba `p.slug` (API v4 eliminada en Astro v5) en vez de `p.id` | Reemplazado `slug` → `id` en `blog.astro`            |
+| Botones compartir no tenían tracking de origen | URLs de sharing sin parámetros UTM                                          | Añadidos UTM a WhatsApp y LinkedIn en `[slug].astro` |
+| SITE_URL apuntaba a proyecto incorrecto        | `middleware.ts` tenía URL de Render de otro proyecto                        | Corregido a `https://devint.cl`                      |
 
 ---
 
@@ -220,8 +227,9 @@ Estos eventos pueden usarse como triggers en GTM para disparar tags específicos
 ### Verificar dataLayer
 
 En la consola del navegador:
+
 ```js
-window.dataLayer  // Ver todos los eventos empujados
+window.dataLayer; // Ver todos los eventos empujados
 ```
 
 ---
@@ -256,4 +264,4 @@ FORMSPREE_FORM_ID=xanprgdl
 
 ---
 
-*Informe generado: Junio 2025 — Devint Web Analytics Setup*
+_Informe generado: Junio 2025 — Devint Web Analytics Setup_

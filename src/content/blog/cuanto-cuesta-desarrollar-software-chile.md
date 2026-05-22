@@ -67,11 +67,11 @@ Un sitio web profesional con diseño a medida, 5-10 páginas, optimización SEO 
 
 ### Tienda online (e-commerce)
 
-| Tipo                                                           | USD                 | CLP aprox.     |
-| -------------------------------------------------------------- | ------------------- | -------------- |
+| Tipo                                                            | USD                 | CLP aprox.     |
+| --------------------------------------------------------------- | ------------------- | -------------- |
 | Tienda en plataforma SaaS (Shopify, WooCommerce, Jumpseller...) | $600 - $8.000       | $580K - $7,7M  |
-| E-commerce a medida (catálogo mediano)                         | $6.000 - $25.000    | $5,8M - $24M   |
-| Marketplace o e-commerce complejo                              | $20.000 - $100.000+ | $19,2M - $96M+ |
+| E-commerce a medida (catálogo mediano)                          | $6.000 - $25.000    | $5,8M - $24M   |
+| Marketplace o e-commerce complejo                               | $20.000 - $100.000+ | $19,2M - $96M+ |
 
 **Factores que encarecen**: pasarelas de pago múltiples (Transbank, MercadoPago, PayPal), integración con ERP/bodega, catálogos de miles de productos, sistema de recomendaciones, multi-vendedor.
 
