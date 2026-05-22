@@ -50,7 +50,7 @@ const categories = ["Todos", ...new Set(allPosts.map((p) => p.data.category))];
               Artículo destacado
             </p>
             <a
-              href={`/blog/${featuredPost.id}`}
+              href={`/blog/${featuredPost.id.replace(/\.md$/, "")}`}
               class="group block overflow-hidden rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-slate-800/80 to-slate-900/80 transition-all duration-300 hover:border-emerald-400/50 hover:shadow-lg hover:shadow-emerald-500/10 md:flex"
             >
               <div class="md:w-2/5 lg:w-1/2">
@@ -165,7 +165,7 @@ const categories = ["Todos", ...new Set(allPosts.map((p) => p.data.category))];
                       {formatDate(data.publishDate)}
                     </span>
                     <a
-                      href={`/blog/${id}`}
+                      href={`/blog/${id.replace(/\.md$/, "")}`}
                       class="flex items-center gap-1.5 text-xs font-semibold text-emerald-300 transition-colors hover:text-emerald-200"
                     >
                       Leer

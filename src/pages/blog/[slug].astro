@@ -3,11 +3,15 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/common/Header.astro";
 import Footer from "../../components/common/Footer.astro";
 import JsonLd from "../../components/seo/JsonLd.astro";
-import { getCollection, getEntry, render } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { formatDate, formatRelativeTime } from "../../utils/format";
 
 const { slug } = Astro.params;
-const post = await getEntry("blog", slug ?? "");
+// Buscar post con getCollection para manejar IDs con o sin extensión .md
+const allPostsRaw = await getCollection("blog");
+const post = allPostsRaw.find(
+  (p) => p.id === slug || p.id.replace(/\.md$/, "") === slug,
+);
 
 if (!post) {
   return Astro.redirect("/blog", 302);
@@ -16,12 +20,12 @@ if (!post) {
 const { Content } = await render(post);
 const { data } = post;
 
-const canonical = `https://devint.cl/blog/${post.id}`;
+const canonical = `https://devint.cl/blog/${post.id.replace(/\.md$/, "")}`;
 const seoTitle = data.seo?.title ?? `${data.title} | Blog Devint`;
 const seoDescription = data.seo?.description ?? data.excerpt;
 
 // Artículos relacionados (misma categoría o etiquetas comunes)
-const allPosts = await getCollection("blog");
+const allPosts = allPostsRaw;
 const relatedPosts = allPosts
   .filter(
     (p) =>
@@ -423,11 +427,13 @@ const breadcrumbSchema = {
                 Artículos relacionados
               </h2>
               <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {relatedPosts.map((related) => (
+                {relatedPosts.map((related) => {
+                  const relatedSlug = related.id.replace(/\.md$/, "");
+                  return (
                   <a
-                    href={`/blog/${related.id}?utm_source=internal&utm_medium=related_articles&utm_campaign=blog_engagement&utm_content=${related.id}`}
+                    href={`/blog/${relatedSlug}?utm_source=internal&utm_medium=related_articles&utm_campaign=blog_engagement&utm_content=${relatedSlug}`}
                     data-track="related_article"
-                    data-article-id={related.id}
+                    data-article-id={relatedSlug}
                     class="group overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 transition-colors hover:border-emerald-400/50"
                   >
                     <img
@@ -448,7 +454,8 @@ const breadcrumbSchema = {
                       </p>
                     </div>
                   </a>
-                ))}
+                  );
+                })}
               </div>
             </section>
           )
