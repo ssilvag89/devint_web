@@ -146,6 +146,9 @@ import Footer from "../components/common/Footer.astro";
                   <option value="webapp">Aplicación Web</option>
                   <option value="integraciones">Integraciones</option>
                   <option value="consultoria-sap">Consultoría SAP</option>
+                  <option value="consultoria-tecnologica"
+                    >Consultoría Tecnológica e Implementación Acompañada</option
+                  >
                   <option value="cloud">Servicios Cloud</option>
                   <option value="diseno">Diseño</option>
                   <option value="refactorizacion">Refactorización</option>
@@ -295,6 +298,15 @@ import Footer from "../components/common/Footer.astro";
 </BaseLayout>
 
 <script>
+  const servicioParam = new URLSearchParams(window.location.search).get("servicio");
+  const servicioSelect = document.getElementById("servicio") as HTMLSelectElement | null;
+  if (
+    servicioParam &&
+    servicioSelect?.querySelector(`option[value="${servicioParam}"]`)
+  ) {
+    servicioSelect.value = servicioParam;
+  }
+
   // Form handling con Formspree
   const form = document.getElementById("contactForm") as HTMLFormElement;
 

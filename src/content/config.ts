@@ -19,8 +19,64 @@ const services = defineCollection({
           step: z.number(),
           title: z.string(),
           description: z.string(),
+          result: z.string().optional(),
         })
       )
+      .optional(),
+    extended: z.boolean().default(false),
+    heroSubtitle: z.string().optional(),
+    heroHighlight: z.string().optional(),
+    ctas: z
+      .object({
+        primaryLabel: z.string(),
+        primaryHref: z.string().default("/contacto"),
+        secondaryLabel: z.string(),
+        secondaryHref: z.string().default("#como-trabajamos"),
+      })
+      .optional(),
+    audience: z
+      .object({
+        title: z.string(),
+        intro: z.string(),
+        bullets: z.array(z.string()),
+      })
+      .optional(),
+    consultant: z
+      .object({
+        title: z.string(),
+        paragraphs: z.array(z.string()),
+      })
+      .optional(),
+    helpAreas: z
+      .array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+        })
+      )
+      .optional(),
+    deliverables: z
+      .array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+        })
+      )
+      .optional(),
+    faqs: z
+      .array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        })
+      )
+      .optional(),
+    closingCta: z
+      .object({
+        title: z.string(),
+        description: z.string(),
+        buttonLabel: z.string(),
+      })
       .optional(),
     pricing: z
       .object({

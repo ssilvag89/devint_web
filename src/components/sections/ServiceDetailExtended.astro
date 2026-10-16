@@ -1,0 +1,251 @@
+---
+interface ProcessStep {
+  step: number;
+  title: string;
+  description: string;
+  result?: string;
+}
+
+interface Props {
+  title: string;
+  category: string;
+  description: string;
+  heroSubtitle?: string;
+  heroHighlight?: string;
+  ctas?: {
+    primaryLabel: string;
+    primaryHref: string;
+    secondaryLabel: string;
+    secondaryHref: string;
+  };
+  audience?: {
+    title: string;
+    intro: string;
+    bullets: string[];
+  };
+  consultant?: {
+    title: string;
+    paragraphs: string[];
+  };
+  helpAreas?: { title: string; description: string }[];
+  process?: ProcessStep[];
+  deliverables?: { title: string; description: string }[];
+  faqs?: { question: string; answer: string }[];
+  closingCta?: {
+    title: string;
+    description: string;
+    buttonLabel: string;
+  };
+}
+
+const {
+  title,
+  category,
+  description,
+  heroSubtitle,
+  heroHighlight,
+  ctas,
+  audience,
+  consultant,
+  helpAreas,
+  process,
+  deliverables,
+  faqs,
+  closingCta,
+} = Astro.props;
+
+const primaryHref = ctas?.primaryHref ?? "/contacto";
+const secondaryHref = ctas?.secondaryHref ?? "#como-trabajamos";
+---
+
+<section class="pb-16 relative">
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-slate-900/95"
+  >
+  </div>
+  <div class="absolute inset-0 opacity-8">
+    <div
+      class="absolute inset-0"
+      style="background-image: radial-gradient(circle at 40% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 35%);"
+    >
+    </div>
+  </div>
+  <div class="container mx-auto px-6 relative z-10 pt-8">
+    <a
+      href="/servicios"
+      class="inline-flex items-center gap-2 text-sm text-emerald-300 hover:text-emerald-200 mb-8"
+    >
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Volver a servicios
+    </a>
+    <div class="max-w-4xl mx-auto text-center space-y-6">
+      <span class="inline-flex text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
+        {category}
+      </span>
+      <h1 class="text-4xl lg:text-5xl font-bold text-white">{title}</h1>
+      {heroSubtitle && (
+        <p class="text-xl lg:text-2xl text-emerald-200/90 font-medium leading-relaxed">
+          {heroSubtitle}
+        </p>
+      )}
+      <p class="text-lg text-slate-300 leading-relaxed">{description}</p>
+      {heroHighlight && (
+        <p class="text-base text-slate-200 leading-relaxed border-l-4 border-emerald-500/60 pl-5 text-left max-w-3xl mx-auto">
+          {heroHighlight}
+        </p>
+      )}
+      {ctas && (
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <a
+            href={primaryHref}
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-8 py-4 font-semibold text-white transition-all hover:from-emerald-600 hover:to-cyan-600 shadow-lg hover:shadow-emerald-500/25"
+          >
+            {ctas.primaryLabel}
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7"></path>
+            </svg>
+          </a>
+          <a
+            href={secondaryHref}
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-slate-900/60 px-8 py-4 font-semibold text-emerald-200 transition-all hover:border-emerald-400 hover:text-emerald-100"
+          >
+            {ctas.secondaryLabel}
+          </a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+{audience && (
+  <section class="py-16 relative">
+    <div class="container mx-auto px-6">
+      <div class="max-w-3xl mx-auto space-y-6">
+        <h2 class="text-3xl font-bold text-white">{audience.title}</h2>
+        <p class="text-slate-300 leading-relaxed">{audience.intro}</p>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-300">
+          Este servicio es para tu empresa si:
+        </p>
+        <ul class="space-y-3">
+          {audience.bullets.map((item) => (
+            <li class="flex gap-3 text-slate-300">
+              <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+)}
+
+{consultant && (
+  <section class="py-16 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-800/30 via-transparent to-transparent"></div>
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="max-w-3xl mx-auto rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-10 space-y-5">
+        <h2 class="text-2xl font-bold text-white">{consultant.title}</h2>
+        {consultant.paragraphs.map((paragraph) => (
+          <p class="text-slate-300 leading-relaxed">{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{helpAreas && helpAreas.length > 0 && (
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-10 text-center">¿En qué podemos ayudarte?</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {helpAreas.map((area) => (
+          <div class="rounded-2xl border border-slate-700 bg-slate-900/40 p-6 space-y-3">
+            <h3 class="text-lg font-semibold text-emerald-300">{area.title}</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">{area.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{process && process.length > 0 && (
+  <section id="como-trabajamos" class="py-16 scroll-mt-28">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-10 text-center">Cómo trabajamos</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        {process.map((step) => (
+          <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6 flex flex-col gap-3">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-semibold text-emerald-300">
+              {step.step}
+            </span>
+            <p class="font-semibold text-white">{step.title}</p>
+            <p class="text-sm text-slate-300 leading-relaxed flex-grow">{step.description}</p>
+            {step.result && (
+              <p class="text-xs text-emerald-200/90 border-t border-emerald-500/20 pt-3">
+                <span class="font-semibold text-emerald-300">Resultado:</span> {step.result}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{deliverables && deliverables.length > 0 && (
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-10 text-center">¿Qué recibe tu empresa?</h2>
+      <div class="grid gap-4 md:grid-cols-2 max-w-4xl mx-auto">
+        {deliverables.map((item) => (
+          <div class="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
+            <p class="font-semibold text-white mb-1">{item.title}</p>
+            <p class="text-sm text-slate-300">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{faqs && faqs.length > 0 && (
+  <section class="py-16">
+    <div class="container mx-auto px-6 max-w-3xl">
+      <h2 class="text-3xl font-bold text-white mb-10 text-center">Preguntas frecuentes</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
+            <summary class="cursor-pointer font-semibold text-white list-none flex justify-between items-center gap-4">
+              {faq.question}
+              <span class="text-emerald-400 group-open:rotate-45 transition-transform text-xl leading-none">+</span>
+            </summary>
+            <p class="mt-4 text-sm text-slate-300 leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{closingCta && (
+  <section class="pb-20">
+    <div class="container mx-auto px-6">
+      <div class="rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-10 text-center max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold text-white mb-4">{closingCta.title}</h2>
+        <p class="text-slate-200 mb-6 leading-relaxed">{closingCta.description}</p>
+        <a
+          href="/contacto"
+          class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-8 py-3 font-semibold text-white transition-all hover:from-emerald-600 hover:to-cyan-600"
+        >
+          {closingCta.buttonLabel}
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+)}
