@@ -179,6 +179,9 @@ import Footer from "../components/common/Footer.astro";
                   <option value="pagina-web">Página Web</option>
                   <option value="webapp">Aplicación Web</option>
                   <option value="integraciones">Integraciones</option>
+                  <option value="consultoria-tecnologica"
+                    >Consultoría tecnológica e implementación</option
+                  >
                   <option value="consultoria-sap">Consultoría SAP</option>
                   <option value="cloud">Servicios Cloud</option>
                   <option value="diseno">Diseño</option>
@@ -357,6 +360,12 @@ import Footer from "../components/common/Footer.astro";
   const servicioSelect = document.getElementById(
     "servicio",
   ) as HTMLSelectElement | null;
+
+  const servicioFromUrl = new URLSearchParams(window.location.search).get("servicio");
+  if (servicioFromUrl && servicioSelect) {
+    const option = Array.from(servicioSelect.options).find((o) => o.value === servicioFromUrl);
+    if (option) servicioSelect.value = servicioFromUrl;
+  }
 
   // Solo letras y espacios
   nombreInput?.addEventListener("input", (e) => {

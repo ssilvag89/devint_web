@@ -4,7 +4,14 @@ export const GET: APIRoute = async ({ site }) => {
   const baseUrl = site?.toString() || "https://devint.cl";
 
   // Static pages
-  const staticPages = ["", "servicios", "nosotros", "blog", "contacto"];
+  const staticPages = [
+    "",
+    "servicios",
+    "servicios/consultoria-tecnologica",
+    "nosotros",
+    "blog",
+    "contacto",
+  ];
 
   // Generate XML
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

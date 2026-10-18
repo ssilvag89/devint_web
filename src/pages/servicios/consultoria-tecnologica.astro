@@ -1,0 +1,374 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/common/Header.astro";
+import Footer from "../../components/common/Footer.astro";
+
+const seoTitle =
+  "Consultoría Tecnológica e Implementación Acompañada | Devint Chile";
+const seoDescription =
+  "Desde el diagnóstico hasta la mejora implementada y validada. Un consultor Devint te acompaña en automatización, integraciones, software e IA aplicada.";
+
+const audienceBullets = [
+  "Tu equipo dedica demasiado tiempo a tareas manuales o registros duplicados.",
+  "Tus sistemas no comparten información y necesitas integrarlos.",
+  "Tienes herramientas que no están resolviendo las necesidades del negocio.",
+  "Necesitas desarrollar o mejorar un software y buscas orientación técnica.",
+  "Debes coordinar varios proveedores para implementar una solución.",
+  "Quieres incorporar automatización o inteligencia artificial con un objetivo concreto.",
+  "Necesitas acompañamiento para que una mejora llegue efectivamente a la operación.",
+];
+
+const helpAreas = [
+  {
+    title: "Automatización de procesos",
+    description:
+      "Identificamos tareas repetitivas y diseñamos soluciones para reducir la intervención manual, los errores y los tiempos de ejecución.",
+  },
+  {
+    title: "Integración de sistemas",
+    description:
+      "Conectamos ERP, plataformas de facturación, comercio electrónico, aplicaciones y otros sistemas para facilitar el intercambio de información.",
+  },
+  {
+    title: "Desarrollo y mejora de software",
+    description:
+      "Evaluamos tus necesidades y acompañamos la creación o evolución de aplicaciones, funcionalidades y herramientas internas.",
+  },
+  {
+    title: "Información para la gestión",
+    description:
+      "Mejoramos la disponibilidad y calidad de los datos mediante reportes, indicadores y tableros que apoyen las decisiones del negocio.",
+  },
+  {
+    title: "Evaluación de herramientas tecnológicas",
+    description:
+      "Te ayudamos a definir requerimientos y evaluar alternativas de software según tus procesos, presupuesto y capacidad de implementación.",
+  },
+  {
+    title: "Inteligencia artificial aplicada",
+    description:
+      "Identificamos casos de uso e implementamos soluciones orientadas a necesidades concretas, como asistencia interna, consulta de información y automatización de tareas.",
+  },
+];
+
+const workSteps = [
+  {
+    step: 1,
+    title: "Conocemos tu operación",
+    body: "Nos reunimos con las personas involucradas y revisamos tus procesos, herramientas y principales dificultades.",
+    result: "Un diagnóstico con necesidades y oportunidades de mejora.",
+  },
+  {
+    step: 2,
+    title: "Definimos un plan de acción",
+    body: "Priorizamos las iniciativas junto con tu empresa y acordamos soluciones, alcance, responsables, presupuesto y criterios de aceptación.",
+    result: "Una hoja de ruta con entregables y plazos definidos.",
+  },
+  {
+    step: 3,
+    title: "Acompañamos la implementación",
+    body: "Ejecutamos las actividades contratadas y coordinamos las tareas que corresponden a tu equipo o a otros proveedores. Damos seguimiento a los avances y gestionamos los obstáculos que surjan.",
+    result: "Mejoras implementadas con seguimiento del consultor.",
+  },
+  {
+    step: 4,
+    title: "Validamos el funcionamiento",
+    body: "Realizamos pruebas, revisamos los resultados con los usuarios y acompañamos la puesta en marcha.",
+    result: "Validación de que cada mejora cumple los criterios acordados.",
+  },
+  {
+    step: 5,
+    title: "Estabilizamos y cerramos",
+    body: "Durante el período establecido, acompañamos la operación y gestionamos las correcciones correspondientes al alcance contratado.",
+    result: "Cierre documentado de las mejoras, con sus validaciones y recomendaciones de continuidad.",
+  },
+];
+
+const deliverables = [
+  {
+    title: "Diagnóstico tecnológico",
+    text: "Situación actual y oportunidades detectadas.",
+  },
+  {
+    title: "Plan de mejoras priorizado",
+    text: "Iniciativas ordenadas según su impacto y dependencias.",
+  },
+  {
+    title: "Alcance definido",
+    text: "Entregables, responsabilidades y criterios de aceptación.",
+  },
+  {
+    title: "Seguimiento del proyecto",
+    text: "Avances, pendientes y decisiones por resolver.",
+  },
+  {
+    title: "Pruebas y validación",
+    text: "Evidencia del funcionamiento de las mejoras.",
+  },
+  {
+    title: "Transferencia al equipo",
+    text: "Documentación y capacitación según lo contratado.",
+  },
+  {
+    title: "Cierre formal",
+    text: "Estado final de los compromisos y próximos pasos recomendados.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Debo saber qué solución necesito antes de contactarlos?",
+    a: "No. Podemos comenzar revisando el problema que enfrenta tu empresa y ayudarte a definir qué conviene mejorar y cómo abordarlo.",
+  },
+  {
+    q: "¿Devint también puede implementar las mejoras?",
+    a: "Sí. Podemos ejecutar desarrollos, integraciones y automatizaciones dentro del alcance contratado, además de coordinar actividades con tu equipo y otros proveedores.",
+  },
+  {
+    q: "¿Podemos trabajar con nuestros sistemas actuales?",
+    a: "Sí. Evaluamos tus herramientas existentes para determinar qué puede aprovecharse, mejorarse o integrarse.",
+  },
+  {
+    q: "¿Cómo se determina que una mejora está terminada?",
+    a: "Antes de implementarla, acordamos criterios de aceptación. Su cierre se realiza después de verificar su cumplimiento y validar el resultado con los responsables de tu empresa.",
+  },
+  {
+    q: "¿Cuánto dura el acompañamiento?",
+    a: "Se establece según el alcance y el plan de trabajo. Incluye las etapas contratadas y un período de estabilización definido en la propuesta.",
+  },
+  {
+    q: "¿Qué ocurre si aparecen nuevas necesidades?",
+    a: "Las evaluamos contigo y definimos su prioridad, impacto y presupuesto para incorporarlas mediante una ampliación del alcance o una nueva etapa.",
+  },
+];
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  image="/images/presentacion.png"
+  seo={{
+    canonical: "https://devint.cl/servicios/consultoria-tecnologica",
+    type: "website",
+    keywords:
+      "consultoría tecnológica, implementación acompañada, integración sistemas, automatización, IA empresas Chile",
+  }}
+>
+  <Header />
+
+  <main class="pt-24">
+    <!-- Hero -->
+    <section class="relative pb-20 pt-8">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-slate-900/95"
+      >
+      </div>
+      <div class="container relative z-10 mx-auto px-6">
+        <a
+          href="/servicios"
+          class="mb-6 inline-flex items-center gap-2 text-sm text-emerald-300 hover:text-emerald-200"
+        >
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Volver a servicios
+        </a>
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-emerald-300">
+            Consultoría
+          </p>
+          <h1 class="mb-4 text-4xl font-bold leading-tight text-white lg:text-5xl">
+            Consultoría Tecnológica e Implementación Acompañada
+          </h1>
+          <p class="mb-2 text-lg font-medium text-emerald-200/90">
+            Desde el diagnóstico hasta la mejora implementada y validada
+          </p>
+          <p class="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-slate-300">
+            Transformamos las necesidades de tu empresa en soluciones tecnológicas concretas. Analizamos tus procesos,
+            identificamos oportunidades de mejora y te acompañamos durante su implementación hasta comprobar que
+            funcionan correctamente en tu operación.
+          </p>
+          <p class="mx-auto mb-10 max-w-2xl text-base text-slate-200">
+            <strong class="font-semibold text-white"
+              >Un consultor responsable de acompañarte en cada etapa, coordinar a los involucrados y dar seguimiento a
+              las mejoras acordadas.</strong
+            >
+          </p>
+          <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              href="/contacto?servicio=consultoria-tecnologica"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-8 py-3.5 font-semibold text-white transition-all hover:from-emerald-600 hover:to-cyan-600"
+            >
+              Conversemos sobre tu empresa
+            </a>
+            <a
+              href="#como-trabajamos"
+              class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-600 bg-slate-900/60 px-8 py-3.5 font-semibold text-slate-200 transition-all hover:border-emerald-500/50 hover:text-white"
+            >
+              Conoce cómo trabajamos
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ¿Tu empresa...? -->
+    <section class="border-t border-slate-800 bg-slate-900/40 py-20">
+      <div class="container mx-auto px-6">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="mb-4 text-3xl font-bold text-white">
+            ¿Tu empresa necesita mejorar, pero no sabe por dónde comenzar?
+          </h2>
+          <p class="mb-6 text-slate-300 leading-relaxed">
+            Cuando los sistemas no se conectan, las tareas manuales se acumulan o la información llega tarde, cuesta
+            decidir qué solución implementar y quién debe hacerse cargo.
+          </p>
+          <p class="mb-10 text-slate-300 leading-relaxed">
+            En Devint te ayudamos a ordenar esas necesidades, priorizar las iniciativas y llevarlas a la práctica con un
+            plan claro.
+          </p>
+        </div>
+        <p class="mb-6 text-center text-sm font-semibold uppercase tracking-[0.2em] text-emerald-300">
+          Este servicio es para tu empresa si:
+        </p>
+        <ul class="mx-auto grid max-w-4xl gap-3 md:grid-cols-2">
+          {
+            audienceBullets.map((item) => (
+              <li class="flex gap-3 rounded-2xl border border-slate-700 bg-slate-800/40 p-4 text-sm text-slate-200">
+                <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald-400" />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Consultor -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="mx-auto max-w-3xl rounded-3xl border border-emerald-500/25 bg-emerald-500/5 p-10">
+          <h2 class="mb-6 text-3xl font-bold text-white">Un consultor que da continuidad a todo el proceso</h2>
+          <p class="mb-4 text-slate-200 leading-relaxed">
+            Contarás con un <strong class="text-white">Consultor de Soluciones Tecnológicas</strong> que conocerá tus
+            procesos y mantendrá el seguimiento desde el levantamiento inicial hasta el cierre de las mejoras
+            contratadas.
+          </p>
+          <p class="mb-4 text-slate-300 leading-relaxed">
+            Su función será comprender tus necesidades, proponer soluciones, coordinar la implementación y verificar los
+            resultados junto con tu equipo.
+          </p>
+          <p class="text-slate-300 leading-relaxed">
+            Según el proyecto, la ejecución podrá involucrar especialistas de Devint, personal de tu empresa y
+            proveedores externos. Tu consultor mantendrá la visión completa del trabajo y el seguimiento de los
+            compromisos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- En qué ayudamos -->
+    <section class="border-t border-slate-800 bg-slate-900/30 py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="mb-12 text-center text-3xl font-bold text-white">¿En qué podemos ayudarte?</h2>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {
+            helpAreas.map((area) => (
+              <article class="rounded-2xl border border-slate-700 bg-slate-800/50 p-6 transition-colors hover:border-emerald-500/40">
+                <h3 class="mb-3 text-lg font-semibold text-emerald-300">{area.title}</h3>
+                <p class="text-sm leading-relaxed text-slate-300">{area.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo trabajamos -->
+    <section id="como-trabajamos" class="scroll-mt-28 py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="mb-12 text-center text-3xl font-bold text-white">Cómo trabajamos</h2>
+        <div class="mx-auto flex max-w-3xl flex-col gap-6">
+          {
+            workSteps.map((step) => (
+              <div class="rounded-2xl border border-slate-700 bg-slate-900/50 p-6 md:p-8">
+                <div class="mb-3 flex items-center gap-4">
+                  <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-bold text-emerald-300">
+                    {step.step}
+                  </span>
+                  <h3 class="text-xl font-semibold text-white">{step.title}</h3>
+                </div>
+                <p class="mb-4 text-slate-300 leading-relaxed">{step.body}</p>
+                <p class="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3 text-sm text-slate-200">
+                  <span class="font-semibold text-emerald-200">Resultado:</span> {step.result}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué recibe -->
+    <section class="border-t border-slate-800 bg-slate-900/40 py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="mb-12 text-center text-3xl font-bold text-white">¿Qué recibe tu empresa?</h2>
+        <ul class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">
+          {
+            deliverables.map((d) => (
+              <li class="rounded-2xl border border-slate-700 p-5">
+                <p class="mb-1 font-semibold text-white">{d.title}</p>
+                <p class="text-sm text-slate-400">{d.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="mb-10 text-center text-3xl font-bold text-white">Preguntas frecuentes</h2>
+        <div class="mx-auto max-w-3xl space-y-4">
+          {
+            faqs.map((faq) => (
+              <details class="group rounded-2xl border border-slate-700 bg-slate-800/40 open:border-emerald-500/30">
+                <summary class="cursor-pointer list-none px-6 py-4 font-medium text-white marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span class="flex items-center justify-between gap-4">
+                    {faq.q}
+                    <span class="text-emerald-400 transition-transform group-open:rotate-180">▼</span>
+                  </span>
+                </summary>
+                <p class="border-t border-slate-700 px-6 py-4 text-sm leading-relaxed text-slate-300">{faq.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="pb-24">
+      <div class="container mx-auto px-6">
+        <div class="rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 p-10 text-center md:p-14">
+          <h2 class="mb-4 text-2xl font-bold text-white md:text-3xl">
+            Llevemos tus mejoras tecnológicas a la práctica
+          </h2>
+          <p class="mx-auto mb-8 max-w-2xl text-slate-200 leading-relaxed">
+            Cuéntanos qué está dificultando la operación de tu empresa. Te ayudaremos a definir un camino claro y te
+            acompañaremos hasta implementar y validar las mejoras acordadas.
+          </p>
+          <a
+            href="/contacto?servicio=consultoria-tecnologica"
+            class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-10 py-3.5 font-semibold text-white transition-all hover:from-emerald-600 hover:to-cyan-600"
+          >
+            Solicitar una reunión
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
