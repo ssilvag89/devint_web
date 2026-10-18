@@ -2,22 +2,30 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/common/Header.astro";
 import Footer from "../../components/common/Footer.astro";
+import ConsultoriaTecnologicaContent from "../../components/servicios/ConsultoriaTecnologicaContent.astro";
 import { getEntryBySlug } from "astro:content";
 import { formatDate } from "../../utils/format";
 
-const { slug } = Astro.params;
-const service = await getEntryBySlug("services", slug ?? "");
+const slug = Astro.params.slug ?? "";
+const isConsultoriaLanding = slug === "consultoria-tecnologica";
 
-if (!service) {
+const service = isConsultoriaLanding
+  ? null
+  : await getEntryBySlug("services", slug);
+
+if (!isConsultoriaLanding && !service) {
   throw Astro.redirect("/servicios", 302);
 }
 
-const { data } = service;
-const seoTitle = data.seo?.title ?? `${data.title} | Servicios Devint`;
-const seoDescription = data.seo?.description ?? data.shortDescription;
-const canonical = `https://devint.cl/servicios/${service.slug}`;
+const data = service?.data;
+const seoTitle = data?.seo?.title ?? `${data?.title} | Servicios Devint`;
+const seoDescription = data?.seo?.description ?? data?.shortDescription;
+const canonical = service ? `https://devint.cl/servicios/${service.slug}` : "";
 ---
 
+{isConsultoriaLanding ? (
+  <ConsultoriaTecnologicaContent />
+) : (
 <BaseLayout
   title={seoTitle}
   description={seoDescription}
@@ -158,3 +166,4 @@ const canonical = `https://devint.cl/servicios/${service.slug}`;
 
   <Footer />
 </BaseLayout>
+)}
